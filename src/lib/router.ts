@@ -27,7 +27,15 @@ export function useRoute(): Route {
   const [route, setRoute] = useState<Route>(() => parse(window.location.hash));
   useEffect(() => {
     const onChange = () => {
-      setRoute(parse(window.location.hash));
+      // "#why", "#how"... are in-page anchors on the landing page, not routes: let the browser
+      // scroll to the section instead of jumping back to the top.
+      const h = window.location.hash;
+      if (h && !h.startsWith('#/')) {
+        setRoute((prev) => (prev.page === 'landing' ? prev : { page: 'landing' }));
+        setTimeout(() => document.getElementById(h.slice(1))?.scrollIntoView({ block: 'start' }), 60);
+        return;
+      }
+      setRoute(parse(h));
       window.scrollTo({ top: 0 });
     };
     window.addEventListener('hashchange', onChange);
