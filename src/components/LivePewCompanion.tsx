@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Check, ChevronLeft, Ellipsis, Loader2, Send, Volume2, VolumeX, X } from 'lucide-react';
 import type { TraditionId } from '../shared/languages';
 import { ChurchTraditionProfile, SupportedLanguageCode } from '../types/koinonia';
-import { SUPPORTED_LANGUAGES, VERIFIED_SCRIPTURE_CORPUS } from '../data/koinoniaData';
+import { SUPPORTED_LANGUAGES, scriptureFor } from '../data/koinoniaData';
 import { runZeroPIIShield } from '../utils/privacyShield';
 import { api, useLiveEvents } from '../lib/api';
 import { isMachineTranslated, tRich, useT, type UiKey } from '../lib/i18n';
@@ -214,7 +214,7 @@ export const LivePewCompanion: React.FC<LivePewCompanionProps> = ({
   const messageTitle = sermonText?.title ?? profile.currentMessageTitle[selectedLang];
   const messageSummary = sermonText?.summary ?? profile.currentMessageSummary[selectedLang];
   const messageTakeaways = sermonText?.takeaways ?? profile.keyTakeaways[selectedLang] ?? profile.keyTakeaways.en;
-  const scripture = (sermon && VERIFIED_SCRIPTURE_CORPUS[sermon.scriptureId]) || profile.primaryScripture;
+  const scripture = (sermon && scriptureFor(sermon.scriptureId, profile.id)) || profile.primaryScripture;
 
   const currentLangMeta =
     SUPPORTED_LANGUAGES.find((l) => l.code === selectedLang) || SUPPORTED_LANGUAGES[0];
@@ -243,7 +243,10 @@ export const LivePewCompanion: React.FC<LivePewCompanionProps> = ({
         source: 'Pew QR Scan',
         pastorLanguage: 'en',
       });
-      setSubmitted({ code: res.pickup.code, crisis: res.crisis || crisisNow, removed: res.removedCount });
+      const crisis = res.crisis || crisisNow;
+      setSubmitted({ code: res.pickup.code, crisis, removed: res.removedCount });
+      // The words are kept on this phone for the reply page; clearing the box avoids a second send.
+      if (!crisis) setVisitorRawText('');
     } catch (err) {
       setSubmitError(err instanceof Error ? err.message : t('care.sendError'));
     } finally {
@@ -264,6 +267,14 @@ export const LivePewCompanion: React.FC<LivePewCompanionProps> = ({
   const [langSheet, setLangSheet] = useState(false);
   const [careCardDismissed, setCareCardDismissed] = useLocalState<boolean>('koinonia.pew.careCardDismissed', false);
   const sheetCloseRef = useRef<HTMLButtonElement>(null);
+  // Step labels are "11:00 AM • Introductory Rites" in English; other languages show only the time
+  // (the step's own title already names it in the reader's language).
+  const stepTime = (label: string) => (selectedLang === 'en' ? label : label.split('•')[0].trim());
+  // After sending, bring the reply code (or the crisis lines) into view: on a phone they sit above the form.
+  const resultRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (submitted) resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [submitted]);
 
   // Desktop only knows the four original sections.
   const deskTab: DeskTab =
@@ -480,10 +491,10 @@ export const LivePewCompanion: React.FC<LivePewCompanionProps> = ({
         type="button"
         onClick={() => setFollowLive((v) => !v)}
         aria-pressed={followLive}
-        className={`btn btn-lg w-full ${followLive ? 'btn-rubric' : 'btn-outline'}`}
+        className={`btn btn-lg w-full !h-auto min-h-12 py-2.5 !whitespace-normal text-center leading-snug ${followLive ? 'btn-rubric' : 'btn-outline'}`}
       >
-        <IconCandle className={`w-5 h-5 ${followLive ? 'animate-pulse' : 'text-rubric'}`} />
-        {followLive ? `${t('live.now')} · ${t('live.follow')}` : t('live.follow')}
+        <IconCandle className={`w-5 h-5 shrink-0 ${followLive ? 'animate-pulse' : 'text-rubric'}`} />
+        <span>{followLive ? t('live.now') : t('live.follow')}</span>
       </button>
 
       <section>
@@ -514,7 +525,7 @@ export const LivePewCompanion: React.FC<LivePewCompanionProps> = ({
                           <IconCandle className="w-3.5 h-3.5" /> {t('live.now')}
                         </span>
                       ) : (
-                        <span className="block mt-0.5 text-sm text-ink-3 num-lining">{step.timestampLabel}</span>
+                        <span className="block mt-0.5 text-sm text-ink-3 num-lining">{stepTime(step.timestampLabel)}</span>
                       )}
                     </span>
                   ) : (
@@ -527,7 +538,7 @@ export const LivePewCompanion: React.FC<LivePewCompanionProps> = ({
                           <IconCandle className="w-3.5 h-3.5" /> {t('live.now')}
                         </span>
                       ) : (
-                        <span className="text-sm text-ink-3 num-lining shrink-0">{step.timestampLabel}</span>
+                        <span className="text-sm text-ink-3 num-lining shrink-0">{stepTime(step.timestampLabel)}</span>
                       )}
                     </>
                   )}
@@ -543,7 +554,7 @@ export const LivePewCompanion: React.FC<LivePewCompanionProps> = ({
           <div>
             <div className="flex flex-wrap items-center gap-3 mb-1.5">
               <span className="rubric">
-                {t('service.part', { n: activeStep.order, total: profile.liturgicalSteps.length, time: activeStep.timestampLabel })}
+                {t('service.part', { n: activeStep.order, total: profile.liturgicalSteps.length, time: stepTime(activeStep.timestampLabel) })}
               </span>
               {followLive && liveIdx === activeLiturgyIdx && (
                 <span className="tag tag-rubric">
@@ -712,6 +723,7 @@ export const LivePewCompanion: React.FC<LivePewCompanionProps> = ({
         </span>
       </div>
 
+      <div ref={resultRef} className="scroll-mt-20 empty:hidden">
       {submitted?.crisis && (
         <CrisisPanel tradition={profile.id} lang={selectedLang} code={submitted.code} rtl={currentLangMeta.rtl} />
       )}
@@ -746,6 +758,7 @@ export const LivePewCompanion: React.FC<LivePewCompanionProps> = ({
           </div>
         </section>
       )}
+      </div>
 
       <form onSubmit={handlePewCareSubmit} className="space-y-5">
         <div>
