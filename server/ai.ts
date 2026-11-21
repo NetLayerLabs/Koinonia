@@ -33,6 +33,16 @@ export function aiModel(): string {
   return provider() === '0g' ? process.env.ZEROG_MODEL || ZEROG_DEFAULT_MODEL : ANTHROPIC_MODEL;
 }
 
+/**
+ * On 0G, translation work (translate, back-translate, compare, Sunday notes, interface strings)
+ * can run on a faster model set with ZEROG_FAST_MODEL (e.g. claude-sonnet-5.5), so the meaning
+ * check takes seconds instead of a minute. Reading a request (triage and the safety flag) always
+ * uses the main model.
+ */
+function fastModel(): string {
+  return process.env.ZEROG_FAST_MODEL?.trim() || aiModel();
+}
+
 export function aiProviderLabel(): string {
   const p = provider();
   return p === '0g' ? '0G Compute' : p === 'anthropic' ? 'Anthropic API' : 'none';
@@ -78,9 +88,12 @@ async function structured<S extends z.ZodType>(
   schema: S,
   system: string,
   user: string,
-  effort: 'low' | 'medium'
+  effort: 'low' | 'medium',
+  tier: 'main' | 'fast' = effort === 'low' ? 'fast' : 'main'
 ): Promise<z.infer<S>> {
-  return provider() === '0g' ? structuredViaTool(schema, system, user) : structuredDirect(schema, system, user, effort);
+  return provider() === '0g'
+    ? structuredViaTool(schema, system, user, tier === 'fast' ? fastModel() : aiModel())
+    : structuredDirect(schema, system, user, effort);
 }
 
 /** Direct Anthropic API: native structured outputs plus server-side model fallback. */
@@ -109,7 +122,7 @@ async function structuredDirect<S extends z.ZodType>(schema: S, system: string, 
  * for every Claude model, but all of them support tools, so the answer is collected as
  * the input of a single "submit" tool and validated with the same Zod schema.
  */
-async function structuredViaTool<S extends z.ZodType>(schema: S, system: string, user: string): Promise<z.infer<S>> {
+async function structuredViaTool<S extends z.ZodType>(schema: S, system: string, user: string, model: string): Promise<z.infer<S>> {
   const { $schema: _ignored, ...inputSchema } = z.toJSONSchema(schema) as Record<string, unknown>;
   const tool = {
     name: 'submit',
@@ -123,7 +136,7 @@ async function structuredViaTool<S extends z.ZodType>(schema: S, system: string,
     let res: Anthropic.Message;
     try {
       res = await getClient().messages.create({
-        model: aiModel(),
+        model,
         max_tokens: 16000,
         system: system + instruction,
         tools: [tool],
@@ -273,7 +286,8 @@ export async function compareMeaning(input: { original: string; backTranslation:
     DriftSchema,
     system,
     `<original>\n${input.original}\n</original>\n\n<back_translation>\n${input.backTranslation}\n</back_translation>`,
-    'medium'
+    'medium',
+    'fast'
   );
   return out;
 }
