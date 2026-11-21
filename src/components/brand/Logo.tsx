@@ -40,12 +40,10 @@ const HEADER_HEIGHT = { sm: 36, md: 46, lg: 60 } as const;
 export function Wordmark({
   tone = 'ink',
   size = 'md',
-  greek = false,
   className = '',
 }: {
   tone?: 'ink' | 'light';
   size?: 'sm' | 'md' | 'lg';
-  greek?: boolean;
   className?: string;
 }) {
   const h = HEADER_HEIGHT[size];
@@ -60,14 +58,6 @@ export function Wordmark({
         className="block select-none"
         draggable={false}
       />
-      {greek && (
-        <span
-          className={`font-serif italic text-[0.8rem] tracking-[0.02em] mt-1 ${tone === 'ink' ? 'text-rubric' : 'text-[#e3a593]'}`}
-          style={{ marginLeft: Math.round(h * 1.14) }}
-        >
-          κοινωνία · fellowship
-        </span>
-      )}
     </span>
   );
 }

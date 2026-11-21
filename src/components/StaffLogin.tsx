@@ -52,7 +52,7 @@ export const StaffLogin: React.FC<Props> = ({ me, onSignedIn }) => {
         <SealArt />
 
         <button onClick={() => go('/')} className="relative w-fit cursor-pointer" aria-label="Koinonia home">
-          <Wordmark tone="light" size="lg" greek />
+          <Wordmark tone="light" size="lg" />
         </button>
 
         <div className="relative space-y-7 max-w-xl">

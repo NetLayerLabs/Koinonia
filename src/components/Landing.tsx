@@ -143,7 +143,7 @@ export const Landing: React.FC<{ status: StatusResponse | null }> = ({ status })
       <header className="sticky top-0 z-30 bg-paper border-b border-rule">
         <div className="page-header-container py-2.5 flex items-center justify-between gap-4">
           <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="cursor-pointer" aria-label="Koinonia, top of page">
-            <Wordmark greek />
+            <Wordmark />
           </button>
           <nav className="hidden md:flex items-center gap-1 text-[0.95rem]">
             {[
