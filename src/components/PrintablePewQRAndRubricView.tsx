@@ -1,3 +1,4 @@
+import { copyText } from '../lib/copy';
 import React, { useState } from 'react';
 import { Check, Copy, Printer } from 'lucide-react';
 import { ChurchTraditionProfile } from '../types/koinonia';
@@ -89,9 +90,11 @@ export const PrintablePewQRAndRubricView: React.FC<Props> = ({ profile, status }
                 </code>
                 <button
                   onClick={() => {
-                    navigator.clipboard.writeText(url);
-                    setCopied(true);
-                    setTimeout(() => setCopied(false), 2000);
+                    void copyText(url).then((ok) => {
+                      if (!ok) return;
+                      setCopied(true);
+                      setTimeout(() => setCopied(false), 2000);
+                    });
                   }}
                   className="btn btn-outline btn-sm shrink-0"
                   title="Copy link"

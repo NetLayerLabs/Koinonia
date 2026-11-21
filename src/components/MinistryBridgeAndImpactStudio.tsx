@@ -1,3 +1,4 @@
+import { copyText } from '../lib/copy';
 import React, { useState } from 'react';
 import { Check, Copy, Loader2 } from 'lucide-react';
 import { api } from '../lib/api';
@@ -112,9 +113,11 @@ export const MinistryBridgeAndImpactStudio: React.FC<MinistryBridgeAndImpactStud
     const text = `${profile.impactStory.monthLabel}\n${profile.impactStory.headline}\n\n${impactNarrative}\n\nVerified Metrics:\n${metrics
       .map((m) => `- ${m.label}: ${m.value} (${m.changeLabel})`)
       .join('\n')}\n\nPrivacy Guarantee: ${profile.impactStory.privacyGuaranteeNote}`;
-    navigator.clipboard.writeText(text);
-    setCopiedReport(true);
-    setTimeout(() => setCopiedReport(false), 2500);
+    void copyText(text).then((ok) => {
+      if (!ok) return;
+      setCopiedReport(true);
+      setTimeout(() => setCopiedReport(false), 2500);
+    });
   };
 
   const term = profile.sermonTerm.toLowerCase();
