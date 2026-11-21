@@ -1,0 +1,15 @@
+[Unit]
+Description=Koinonia API (koinonia.netlayerlabs.com) on 127.0.0.1:8795
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/koinonia
+ExecStart=/usr/bin/node --env-file-if-exists=/opt/koinonia/.env.local server/index.ts
+Restart=always
+RestartSec=3
+Environment=NODE_ENV=production
+# Logs: journalctl -u koinonia -f
+
+[Install]
+WantedBy=multi-user.target
