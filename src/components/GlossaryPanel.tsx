@@ -17,7 +17,8 @@ interface Props {
 
 const PREVIEW_TEXT: Record<string, string> = {
   'san-venanzio-unicam':
-    'The Lord is close to you. God loves you, the Holy Spirit is with you, and our priest would be glad to see you at Mass on Sunday.',
+    // Written the way an English-speaking parish would write it ("pastor", "service"), so the glossary's work shows.
+    'God loves you, and the Holy Spirit is with you. Our pastor would be glad to see you at the service this Sunday.',
   'grace-fellowship-us':
     'The Lord is close to you. God loves you, the Holy Spirit is with you, and our pastor would be glad to see you at the worship service on Sunday.',
 };
