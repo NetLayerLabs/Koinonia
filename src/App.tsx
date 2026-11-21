@@ -415,7 +415,10 @@ function Dashboard({
         <div className="w-full max-w-[1500px] mx-auto px-6 lg:px-10 pb-8">
           <div className="double-rule pt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-sm text-ink-3">
             <span>
-              <span className="font-serif text-ink">Koinonia</span> · inspired by the Basilica di San Venanzio, Camerino · sample data
+              <span className="inline-flex items-center gap-3">
+                <Wordmark size="sm" />
+                <span>inspired by the Basilica di San Venanzio, Camerino · sample data</span>
+              </span>
             </span>
             <span className="flex flex-wrap items-center gap-x-4 gap-y-1 rubric-ink">
               <span className="flex items-center gap-1.5">

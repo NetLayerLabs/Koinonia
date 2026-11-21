@@ -1,10 +1,17 @@
 import React from 'react';
 
 /**
- * The Koinonia mark: a vesica piscis - two equal circles, each passing through the
- * other's centre. One of the oldest Christian symbols; here it is two people (or two
- * languages) and the shared space between them, which is what koinonia means.
+ * Koinonia's logo: an arched stained-glass window around the vesica piscis (two circles,
+ * two people or two languages, and the shared space between them, with a cross).
+ * The artwork lives in /public/brand as transparent PNGs, drawn on paper and cut out:
+ *   koinonia-header(-light).png  - the window with the "Koinonia" wordmark (headers, footers)
+ *   koinonia-mark(-light).png    - the window alone (tight spaces, the pew card, the rail)
+ * Use the "light" versions on dark backgrounds.
  */
+
+const MARK_RATIO = 851 / 924; // width / height of the window artwork
+
+/** The window mark alone. `size` is its height in pixels. */
 export function VesicaMark({
   size = 32,
   tone = 'ink',
@@ -14,17 +21,22 @@ export function VesicaMark({
   tone?: 'ink' | 'light';
   className?: string;
 }) {
-  const stroke = tone === 'ink' ? 'var(--color-ink)' : 'var(--color-vellum)';
   return (
-    <svg width={size} height={size} viewBox="0 0 32 32" fill="none" aria-hidden className={className}>
-      <circle cx="12" cy="16" r="8" stroke={stroke} strokeWidth="1.7" />
-      <circle cx="20" cy="16" r="8" stroke={stroke} strokeWidth="1.7" />
-      <path d="M16 9.07A8 8 0 0 1 16 22.93 8 8 0 0 1 16 9.07Z" fill="var(--color-rubric)" />
-      <path d="M16 12.6v6.8M13.9 14.8h4.2" stroke={tone === 'ink' ? 'var(--color-vellum)' : 'var(--color-nave)'} strokeWidth="1.2" strokeLinecap="round" />
-    </svg>
+    <img
+      src={tone === 'ink' ? '/brand/koinonia-mark.png' : '/brand/koinonia-mark-light.png'}
+      alt=""
+      aria-hidden
+      width={Math.round(size * MARK_RATIO)}
+      height={size}
+      className={`inline-block shrink-0 select-none ${className}`}
+      draggable={false}
+    />
   );
 }
 
+const HEADER_HEIGHT = { sm: 36, md: 46, lg: 60 } as const;
+
+/** The full logo: the window and the "Koinonia" wordmark. */
 export function Wordmark({
   tone = 'ink',
   size = 'md',
@@ -36,17 +48,26 @@ export function Wordmark({
   greek?: boolean;
   className?: string;
 }) {
-  const mark = size === 'lg' ? 40 : size === 'sm' ? 26 : 32;
-  const text = size === 'lg' ? 'text-[1.9rem]' : size === 'sm' ? 'text-[1.3rem]' : 'text-[1.55rem]';
+  const h = HEADER_HEIGHT[size];
   return (
-    <span className={`inline-flex items-center gap-2.5 ${className}`}>
-      <VesicaMark size={mark} tone={tone} />
-      <span className="flex flex-col leading-none">
-        <span className={`font-serif font-semibold tracking-[-0.01em] ${text} ${tone === 'ink' ? 'text-ink' : 'text-vellum'}`}>Koinonia</span>
-        {greek && (
-          <span className={`font-serif italic text-[0.8rem] tracking-[0.02em] mt-0.5 ${tone === 'ink' ? 'text-rubric' : 'text-[#e3a593]'}`}>κοινωνία · fellowship</span>
-        )}
-      </span>
+    <span className={`inline-flex flex-col items-start leading-none ${className}`}>
+      <img
+        src={tone === 'ink' ? '/brand/koinonia-header.png' : '/brand/koinonia-header-light.png'}
+        alt="Koinonia"
+        height={h}
+        width={Math.round(h * (600 / 173))}
+        style={{ height: h, width: 'auto' }}
+        className="block select-none"
+        draggable={false}
+      />
+      {greek && (
+        <span
+          className={`font-serif italic text-[0.8rem] tracking-[0.02em] mt-1 ${tone === 'ink' ? 'text-rubric' : 'text-[#e3a593]'}`}
+          style={{ marginLeft: Math.round(h * 1.14) }}
+        >
+          κοινωνία · fellowship
+        </span>
+      )}
     </span>
   );
 }

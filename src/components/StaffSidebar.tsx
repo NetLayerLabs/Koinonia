@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { LogOut, PanelLeftClose, PanelLeftOpen, RotateCcw } from 'lucide-react';
-import { VesicaMark } from './brand/Logo';
+import { VesicaMark, Wordmark } from './brand/Logo';
 import type { IconProps } from './brand/Icons';
 import { ROLE_META, type StaffRole } from '../shared/staff';
 import type { ChurchTraditionId } from '../types/koinonia';
@@ -90,11 +90,12 @@ export function StaffSidebar(p: Props) {
       {/* Brand + collapse */}
       <div className={`flex border-b border-rule ${collapsed ? 'flex-col items-center gap-1.5 py-3' : 'items-center justify-between h-16 px-4'}`}>
         <a href="#/" className="flex items-center gap-2.5 min-w-0 hover:opacity-80" aria-label="Koinonia home page" title="Back to the home page">
-          <VesicaMark size={30} />
-          {!collapsed && (
+          {collapsed ? (
+            <VesicaMark size={34} />
+          ) : (
             <span className="leading-none">
-              <span className="block font-serif font-semibold text-[1.3rem] text-ink">Koinonia</span>
-              <span className="block font-sc text-[0.7rem] tracking-[0.14em] text-rubric mt-0.5">Staff</span>
+              <Wordmark size="sm" />
+              <span className="block font-sc text-[0.68rem] tracking-[0.14em] text-rubric mt-1">Staff</span>
             </span>
           )}
         </a>
