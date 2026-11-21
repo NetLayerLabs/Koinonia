@@ -289,7 +289,7 @@ function Dashboard({
           staffName={staffName}
           role={role}
           roleIcon={RoleIcon}
-          canReset={can(role, 'demo:reset')}
+          canReset={can(role, 'demo:reset') && !status?.publicDemo}
           onReset={resetDemo}
           onSignOut={onSignOut}
           counts={counts}
@@ -361,7 +361,7 @@ function Dashboard({
             roleIcon={RoleIcon}
             aiOn={aiOn}
             aiLabel={status ? (aiOn ? 'Live AI' : 'Sample mode · AI off') : 'Connecting…'}
-            canReset={can(role, 'demo:reset')}
+            canReset={can(role, 'demo:reset') && !status?.publicDemo}
             onReset={resetDemo}
             onSignOut={onSignOut}
           />

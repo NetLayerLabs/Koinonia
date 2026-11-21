@@ -121,5 +121,7 @@ export interface StatusResponse {
   ai: boolean;
   model: string;
   provider: string;
+  /** The public demo: manual reset is off and the demo resets itself nightly. */
+  publicDemo?: boolean;
   lanAddresses: string[];
 }

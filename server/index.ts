@@ -4,6 +4,7 @@
 
 import { clientIp, demoLoginEnabled, login, logout, passcodeConfigured, staffFor, type StaffSession } from './auth.ts';
 import { speak, TtsError, ttsEnabled } from './tts.ts';
+import { publicDemo, scheduleNightlyReset, takeBudget } from './limits.ts';
 import { can, ROLE_META, STAFF_ACCOUNTS, type Permission } from '../src/shared/staff.ts';
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
 import { networkInterfaces } from 'node:os';
@@ -224,7 +225,7 @@ function pickupView(c: CareRecord): PickupView {
   };
 }
 
-async function createCare(body: Record<string, unknown>): Promise<CareRecord> {
+async function createCare(body: Record<string, unknown>, client: string): Promise<CareRecord> {
   const t = tradition(body.tradition);
   const language = lang(body.language);
   const pastorLang = lang(body.pastorLanguage ?? 'en', 'pastor language');
@@ -278,8 +279,11 @@ async function createCare(body: Record<string, unknown>): Promise<CareRecord> {
   }
 
   // 2. AI triage and draft (or clearly-labelled sample output when AI is off).
+  // On the public demo each visitor has an AI budget; past it the request is still accepted
+  // and reaches the pastor, it just skips the AI step. Nobody asking for help is turned away.
   const meta = TRADITION_META[t];
-  if (aiEnabled()) {
+  const withinBudget = takeBudget('careTriage', client);
+  if (aiEnabled() && withinBudget) {
     const triage = await triageRequest({
       redactedText,
       attendeeLanguage: LANG_NAMES[language],
@@ -318,7 +322,8 @@ async function createCare(body: Record<string, unknown>): Promise<CareRecord> {
     ...base,
     category: sample.category,
     urgency: sample.urgency,
-    summaryForLeader: `[Sample - AI is off] Request written in ${LANG_NAMES[language]}: “${redactedText.slice(0, 220)}${redactedText.length > 220 ? '…' : ''}”`,
+    mode: 'sample',
+    summaryForLeader: `${aiEnabled() ? '[No AI summary - this visitor reached the demo limit]' : '[Sample - AI is off]'} Request written in ${LANG_NAMES[language]}: “${redactedText.slice(0, 220)}${redactedText.length > 220 ? '…' : ''}”`,
     verseId: verses.some((v) => v.id === sample.verseId) ? sample.verseId : verses[0]?.id ?? null,
     groupId: group?.id ?? null,
     draftPastorText: sampleDraft(pastorLang, group?.name ?? 'our welcome group'),
@@ -407,7 +412,7 @@ async function route(req: IncomingMessage, res: ServerResponse): Promise<void> {
   });
 
   if (method === 'GET' && path === '/api/status') {
-    const body: StatusResponse = { ai: aiEnabled(), model: aiModel(), provider: aiProviderLabel(), lanAddresses: lanAddresses() };
+    const body: StatusResponse = { ai: aiEnabled(), model: aiModel(), provider: aiProviderLabel(), lanAddresses: publicDemo() ? [] : lanAddresses(), publicDemo: publicDemo() };
     return send(res, 200, body);
   }
 
@@ -459,6 +464,7 @@ async function route(req: IncomingMessage, res: ServerResponse): Promise<void> {
     if (role === 'staff') requireStaff();
     res.writeHead(200, {
       'content-type': 'text/event-stream',
+      'x-accel-buffering': 'no', // tell nginx not to buffer live events
       'cache-control': 'no-store',
       connection: 'keep-alive',
     });
@@ -514,7 +520,7 @@ async function route(req: IncomingMessage, res: ServerResponse): Promise<void> {
 
   if (method === 'POST' && path === '/api/care') {
     const body = await readJson(req);
-    const record = await createCare(body);
+    const record = await createCare(body, clientIp(req));
     db.care.push(record);
     save();
     broadcast(record.tradition, 'care', { id: record.id });
@@ -537,6 +543,9 @@ async function route(req: IncomingMessage, res: ServerResponse): Promise<void> {
     }
 
     if (action === 'check') {
+      if (aiEnabled() && !takeBudget('staffAi', clientIp(req))) {
+        throw new HttpError(429, 'The demo limit for AI checks was reached from this device. Please try again in a few minutes.');
+      }
       if (c.status === 'crisis' || c.status === 'crisis-handled') throw new HttpError(409, 'Crisis requests are answered by a person, not drafted.');
       const pastorText = str(body.pastorText, 'reply', 6000);
       const pastorLang = lang(body.pastorLanguage ?? 'en', 'pastor language');
@@ -612,6 +621,9 @@ async function route(req: IncomingMessage, res: ServerResponse): Promise<void> {
   }
   if (method === 'POST' && path === '/api/glossary/preview') {
     requireStaff('glossary:preview');
+    if (!takeBudget('staffAi', clientIp(req))) {
+      throw new HttpError(429, 'The demo limit for AI comparisons was reached from this device. Please try again in a few minutes.');
+    }
     // Same text translated with and without the glossary, to show what it changes.
     const body = await readJson(req);
     const t = tradition(body.tradition);
@@ -657,6 +669,9 @@ async function route(req: IncomingMessage, res: ServerResponse): Promise<void> {
   }
   if (method === 'POST' && path === '/api/sermon/publish') {
     const me = requireStaff('sermon:publish');
+    if (aiEnabled() && !takeBudget('publish', clientIp(req))) {
+      throw new HttpError(429, 'Publishing is limited to 3 times an hour on the public demo. Please try again later.');
+    }
     const body = await readJson(req);
     const t = tradition(body.tradition);
     const title = str(body.title, 'title', 300);
@@ -708,6 +723,7 @@ async function route(req: IncomingMessage, res: ServerResponse): Promise<void> {
 
   if (method === 'POST' && path === '/api/reset') {
     requireStaff('demo:reset');
+    if (publicDemo()) throw new HttpError(403, 'The public demo resets itself every night; manual reset is turned off.');
     resetAll();
     for (const t of Object.keys(listeners) as TraditionId[]) broadcast(t, 'care', { reset: true });
     return send(res, 200, { ok: true });
@@ -729,4 +745,11 @@ server.listen(PORT, '127.0.0.1', () => {
   console.log(`Koinonia API on http://127.0.0.1:${PORT} - AI ${aiEnabled() ? `ON (${aiModel()} via ${aiProviderLabel()})` : 'OFF (sample mode: add ZEROG_API_KEY to .env.local)'}`);
   void checkModelAvailable().then((problem) => problem && console.warn(`Warning: ${problem}`));
   console.log(`Read-aloud voices: ${ttsEnabled() ? 'ElevenLabs' : 'browser only (no ElevenLabs key)'}`);
+  if (publicDemo()) {
+    console.log('Public demo: manual reset off, nightly reset on');
+    scheduleNightlyReset(() => {
+      resetAll();
+      for (const t of Object.keys(listeners) as TraditionId[]) broadcast(t, 'care', { reset: true });
+    });
+  }
 });
