@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ChevronLeft, Eye, EyeOff, Loader2, Phone, Plus, X } from 'lucide-react';
 import type { ChurchTraditionProfile, SupportedLanguageCode } from '../types/koinonia';
-import { SUPPORTED_LANGUAGES, VERIFIED_SCRIPTURE_CORPUS } from '../data/koinoniaData';
+import { SUPPORTED_LANGUAGES, scriptureFor } from '../data/koinoniaData';
 import { api, useLiveEvents } from '../lib/api';
 import { can, type StaffRole } from '../shared/staff';
 import { PASTOR_LANGUAGES, sampleOriginal, seedRecords } from '../lib/careData';
@@ -473,7 +473,7 @@ function RequestDetail({
   const [showOriginal, setShowOriginal] = useState(false);
 
   const group = profile.smallGroups.find((g) => g.id === record.groupId);
-  const verse = record.verseId ? VERIFIED_SCRIPTURE_CORPUS[record.verseId] : null;
+  const verse = scriptureFor(record.verseId, record.tradition);
   const check = record.check;
   const stale = Boolean(check && check.pastorText !== text);
   const original = originalForCode(record.pickupCode) ?? sampleOriginal(profile, record.redactedText);

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ChevronLeft, Loader2 } from 'lucide-react';
 import { Wordmark } from './brand/Logo';
 import { IconCandle, IconKey, IconLectern, IconSeal, IconTable } from './brand/Icons';
-import { CHURCH_PROFILES, SUPPORTED_LANGUAGES, VERIFIED_SCRIPTURE_CORPUS } from '../data/koinoniaData';
+import { CHURCH_PROFILES, SUPPORTED_LANGUAGES, scriptureFor } from '../data/koinoniaData';
 import { api } from '../lib/api';
 import { loadMyRequests, originalForCode } from '../lib/local';
 import { useT } from '../lib/i18n';
@@ -50,7 +50,7 @@ export const PickupPage: React.FC<{ code: string | null }> = ({ code }) => {
   }, [view]);
 
   const profile = view ? CHURCH_PROFILES[view.tradition] : null;
-  const verse = view?.verseId ? VERIFIED_SCRIPTURE_CORPUS[view.verseId] : null;
+  const verse = view ? scriptureFor(view.verseId, view.tradition) : null;
   const group = profile?.smallGroups.find((g) => g.id === view?.groupId);
   const original = view ? originalForCode(view.code) : null;
 
@@ -142,7 +142,7 @@ export const PickupPage: React.FC<{ code: string | null }> = ({ code }) => {
             <article className="leaf px-6 sm:px-10 py-8 space-y-7">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <p className="rubric">
-                  <span className="vr-mark">℟</span> {t('pickup.replyFrom')} {view.approvedBy}
+                  <span className="vr-mark">℟</span> {t('common.approvedBy', { name: view.approvedBy ?? '' })}
                 </p>
                 <span className="tag tag-vine">
                   <IconSeal className="w-4 h-4" /> {profile?.churchName}

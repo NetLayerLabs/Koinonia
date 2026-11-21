@@ -132,7 +132,7 @@ export const VERIFIED_SCRIPTURE_CORPUS: Record<string, VerifiedScripture> = {
     texts: makeMultilingual({
       en: '“The Lord is close to the brokenhearted and saves those who are crushed in spirit.”',
       it: '«Il Signore è vicino a chi ha il cuore spezzato, egli salva gli spiriti affranti.»',
-      es: '«Cercano está el Señor a los quebrantados de corazón, y salva a los contritos de espírito.»',
+      es: '«Cercano está el Señor a los quebrantados de corazón, y salva a los contritos de espíritu.»',
       fr: '« L’Éternel est près de ceux qui ont le cœur brisé, et il sauve ceux qui ont l’esprit dans l’abattement. »',
       zh: '“耶和华靠近伤心的人，拯救灵性痛悔的人。”',
       ar: '«قَرِيبٌ هُوَ الرَّبُّ مِنَ الْمُنْكَسِرِي الْقُلُوبِ، وَيُخَلِّصُ الْمُنْسَحِقِي الرُّوحِ.»',
@@ -182,6 +182,72 @@ export const VERIFIED_SCRIPTURE_CORPUS: Record<string, VerifiedScripture> = {
     }),
   },
 };
+
+/**
+ * Catholic and Protestant Bibles word the same verse differently in Korean, Chinese and Vietnamese
+ * (하느님 / 하나님, 天主 / 上帝, Thiên Chúa / Đức Chúa Trời...). Each church reads its own wording,
+ * matching its tradition glossary. Demo texts: a church connects its licensed translation before real use.
+ */
+const TRADITION_TEXTS: Record<string, Record<string, Partial<Record<SupportedLanguageCode, string>>>> = {
+  'san-venanzio-unicam': {
+    'luke-21-19': {
+      ko: '“너희는 인내로써 생명을 얻어라... 희망은 우리를 부끄럽게 하지 않습니다. 우리가 받은 성령을 통하여 하느님의 사랑이 우리 마음에 부어졌기 때문입니다.”',
+      zh: '“你们赖你们的坚忍，必将保全你们的灵魂……望德不叫人蒙羞，因为天主的爱，藉着所赐与我们的圣神，已倾注在我们心中了。”',
+    },
+    'psalm-34-18': {
+      ko: '“주님께서는 마음이 부서진 이들에게 가까이 계시고 넋이 짓밟힌 이들을 구원해 주신다.”',
+      zh: '“上主接近心灵破碎的人，他必拯救精神颓丧的人。”',
+      vi: '“Chúa gần gũi những tấm lòng tan vỡ, cứu những tâm thần bị nghiền nát.”',
+    },
+    'philippians-4-19': {
+      ko: '“나의 하느님께서도 당신의 영광에 따라 그리스도 예수님 안에서 여러분에게 필요한 모든 것을 풍성히 채워 주실 것입니다.”',
+      zh: '“我的天主必要按照他的丰富，在光荣中，在基督耶稣内，满足你们的一切需要。”',
+      vi: '“Thiên Chúa của tôi sẽ thoả mãn mọi nhu cầu của anh em, theo sự phong phú huy hoàng của Người, trong Đức Ki-tô Giê-su.”',
+    },
+    'matthew-11-28': {
+      ko: '“고생하며 무거운 짐을 진 너희는 모두 나에게 오너라. 내가 너희에게 안식을 주겠다.”',
+      zh: '“凡劳苦和负重担的，你们都到我跟前来，我要使你们安息。”',
+      vi: '“Tất cả những ai đang vất vả mang gánh nặng nề, hãy đến cùng tôi, tôi sẽ cho nghỉ ngơi bồi dưỡng.”',
+    },
+    'isaiah-41-10': {
+      ko: '“두려워하지 마라, 내가 너와 함께 있다. 겁내지 마라, 내가 너의 하느님이다. 내가 너의 힘을 북돋우고 너를 도와주리라.”',
+      zh: '“你不要害怕，因为我与你同在；不要惊惶，因为我是你的天主：我坚固你，协助你，用我胜利的右手扶持你。”',
+      vi: '“Đừng sợ, vì có Ta ở với ngươi. Đừng nhìn ngược nhìn xuôi, vì Ta là Thiên Chúa của ngươi. Ta cho ngươi vững mạnh, Ta phù trợ ngươi.”',
+    },
+  },
+  'grace-fellowship-us': {
+    'luke-21-19': {
+      vi: '“Nhờ sự nhịn nhục của các ngươi mà giữ được linh hồn mình... Vả, sự trông cậy không làm cho hổ thẹn, vì sự yêu thương của Đức Chúa Trời rải khắp trong lòng chúng ta bởi Đức Thánh Linh đã được ban cho chúng ta.”',
+    },
+    'psalm-34-18': {
+      ko: '“여호와는 마음이 상한 자를 가까이 하시고 충심으로 통회하는 자를 구원하시는도다.”',
+      vi: '“Đức Giê-hô-va ở gần những người có lòng đau thương, và cứu kẻ nào có tâm hồn thống hối.”',
+    },
+    'philippians-4-19': {
+      ko: '“나의 하나님이 그리스도 예수 안에서 영광 가운데 그 풍성한 대로 너희 모든 쓸 것을 채우시리라.”',
+      vi: '“Đức Chúa Trời tôi sẽ làm cho đầy đủ mọi sự cần dùng của anh em y theo sự giàu có của Ngài ở nơi vinh hiển trong Đức Chúa Jêsus Christ.”',
+    },
+    'matthew-11-28': {
+      ko: '“수고하고 무거운 짐 진 자들아 다 내게로 오라 내가 너희를 쉬게 하리라.”',
+      vi: '“Hỡi những kẻ mệt mỏi và gánh nặng, hãy đến cùng ta, ta sẽ cho các ngươi được yên nghỉ.”',
+    },
+    'isaiah-41-10': {
+      ko: '“두려워하지 말라 내가 너와 함께 함이라 놀라지 말라 나는 네 하나님이 됨이라 내가 너를 굳세게 하리라 참으로 너를 도와 주리라.”',
+      vi: '“Đừng sợ, vì ta ở với ngươi; chớ kinh khiếp, vì ta là Đức Chúa Trời ngươi! Ta sẽ bổ sức cho ngươi; phải, ta sẽ giúp đỡ ngươi.”',
+    },
+  },
+};
+
+/** A passage's texts in the wording of one church's tradition. */
+export function passageTexts(id: string, tradition: string): Record<SupportedLanguageCode, string> {
+  return { ...VERIFIED_SCRIPTURE_CORPUS[id].texts, ...(TRADITION_TEXTS[tradition]?.[id] ?? {}) } as Record<SupportedLanguageCode, string>;
+}
+
+/** A passage as one church reads it, or null for an unknown id. */
+export function scriptureFor(id: string | null | undefined, tradition: string): VerifiedScripture | null {
+  const base = id ? VERIFIED_SCRIPTURE_CORPUS[id] : undefined;
+  return base ? { ...base, texts: passageTexts(base.id, tradition) } : null;
+}
 
 export const CHURCH_PROFILES: Record<string, ChurchTraditionProfile> = {
   'san-venanzio-unicam': {
@@ -291,7 +357,7 @@ export const CHURCH_PROFILES: Record<string, ChurchTraditionProfile> = {
         'Жоден студент UNICAM не повинен залишатися самотнім цього тижня.',
       ],
     },
-    primaryScripture: VERIFIED_SCRIPTURE_CORPUS['luke-21-19'],
+    primaryScripture: scriptureFor('luke-21-19', 'san-venanzio-unicam')!,
     liturgicalSteps: [
       {
         id: 'step-1',
@@ -405,7 +471,7 @@ export const CHURCH_PROFILES: Record<string, ChurchTraditionProfile> = {
           zh: '在万事陌生的环境中站稳脚跟',
         }),
         scriptureRef: 'Luke 21:19',
-        scriptureText: VERIFIED_SCRIPTURE_CORPUS['luke-21-19'].texts,
+        scriptureText: passageTexts('luke-21-19', 'san-venanzio-unicam'),
         reflectionPrompt: makeMultilingual({
           en: 'What is one area of your studies, research, or family life in Camerino that feels shaky today? How can you invite Christ into that exact fracture instead of hiding it?',
           it: 'Qual è un ambito dei tuoi studi a UNICAM o della tua vita familiare che oggi senti fragile? Come puoi invitare Cristo proprio in quella fessura invece di nasconderla?',
@@ -432,7 +498,7 @@ export const CHURCH_PROFILES: Record<string, ChurchTraditionProfile> = {
           zh: '在喧嚣世界中持守年轻人的勇气',
         }),
         scriptureRef: 'Isaiah 41:10',
-        scriptureText: VERIFIED_SCRIPTURE_CORPUS['isaiah-41-10'].texts,
+        scriptureText: passageTexts('isaiah-41-10', 'san-venanzio-unicam'),
         reflectionPrompt: makeMultilingual({
           en: 'St. Venantius was only 15 in Camerino when he witnessed to Christ with unshakable joy. Where is God calling you to quiet courage in your faculty or laboratory this week?',
           it: 'San Venanzio aveva solo 15 anni qui a Camerino quando testimoniò Cristo con gioia. Dove Dio ti chiama a un coraggio mite nella tua facoltà o nel tuo laboratorio questa settimana?',
@@ -459,7 +525,7 @@ export const CHURCH_PROFILES: Record<string, ChurchTraditionProfile> = {
           zh: '震后重建的生命之美',
         }),
         scriptureRef: 'Psalm 34:18',
-        scriptureText: VERIFIED_SCRIPTURE_CORPUS['psalm-34-18'].texts,
+        scriptureText: passageTexts('psalm-34-18', 'san-venanzio-unicam'),
         reflectionPrompt: makeMultilingual({
           en: 'When Basilica di San Venanzio reopened in 2019 after the 2016 earthquake, every restored arch told a story of grace. Looking back at a past disappointment, where can you see God’s rebuilding hand?',
           it: 'Quando la Basilica di San Venanzio ha riaperto nel 2019 dopo il sisma del 2016, ogni arco restaurato raccontava una grazia. Guardando a una ferita passata, dove scorgi la mano di Dio che ricostruisce?',
@@ -486,7 +552,7 @@ export const CHURCH_PROFILES: Record<string, ChurchTraditionProfile> = {
           zh: '用盛情款待打破语言的隔阂',
         }),
         scriptureRef: 'Matthew 11:28',
-        scriptureText: VERIFIED_SCRIPTURE_CORPUS['matthew-11-28'].texts,
+        scriptureText: passageTexts('matthew-11-28', 'san-venanzio-unicam'),
         reflectionPrompt: makeMultilingual({
           en: 'In Christ, no one is a foreigner. Have you allowed shyness or language differences to keep you isolated from believers around you?',
           it: 'In Cristo nessuno è straniero. Hai permesso alla timidezza o alla differenza di lingua di tenerti isolato dai fratelli accanto a te?',
@@ -513,7 +579,7 @@ export const CHURCH_PROFILES: Record<string, ChurchTraditionProfile> = {
           zh: '将日用的饮食交托于神',
         }),
         scriptureRef: 'Philippians 4:19',
-        scriptureText: VERIFIED_SCRIPTURE_CORPUS['philippians-4-19'].texts,
+        scriptureText: passageTexts('philippians-4-19', 'san-venanzio-unicam'),
         reflectionPrompt: makeMultilingual({
           en: 'Are you carrying financial stress, scholarship delays, or family worries in secret? Why is asking the Body of Christ for help an act of humility and faith?',
           it: 'Stai portando in segreto preoccupazioni economiche, ritardi nelle borse di studio o pensieri per la famiglia? Chiedere aiuto alla comunità cristiana è un atto di fede.',
@@ -540,7 +606,7 @@ export const CHURCH_PROFILES: Record<string, ChurchTraditionProfile> = {
           zh: '主日前的安息与宁静',
         }),
         scriptureRef: 'Matthew 11:28',
-        scriptureText: VERIFIED_SCRIPTURE_CORPUS['matthew-11-28'].texts,
+        scriptureText: passageTexts('matthew-11-28', 'san-venanzio-unicam'),
         reflectionPrompt: makeMultilingual({
           en: 'Your worth is not measured by your GPA or research output. How can you practice true rest in God’s presence this weekend?',
           it: 'Il tuo valore non dipende dalla media dei voti o dalle pubblicazioni. Come puoi vivere un vero riposo alla presenza di Dio questo fine settimana?',
@@ -567,7 +633,7 @@ export const CHURCH_PROFILES: Record<string, ChurchTraditionProfile> = {
           zh: '不让任何一个人孤单走进圣殿',
         }),
         scriptureRef: 'Luke 21:19',
-        scriptureText: VERIFIED_SCRIPTURE_CORPUS['luke-21-19'].texts,
+        scriptureText: passageTexts('luke-21-19', 'san-venanzio-unicam'),
         reflectionPrompt: makeMultilingual({
           en: 'Who is one friend at UNICAM or neighbor in Camerino you can invite to sit beside you at Mass today and share this multilingual pew guide with?',
           it: 'Quale amico di UNICAM o vicino di casa a Camerino puoi invitare a sedersi accanto a te a Messa oggi, condividendo questa guida multilingue?',
@@ -982,7 +1048,7 @@ export const CHURCH_PROFILES: Record<string, ChurchTraditionProfile> = {
         'Розпочніть 7-денну подорож Писанням.',
       ],
     },
-    primaryScripture: VERIFIED_SCRIPTURE_CORPUS['luke-21-19'],
+    primaryScripture: scriptureFor('luke-21-19', 'grace-fellowship-us')!,
     liturgicalSteps: [
       {
         id: 'gf-1',
@@ -1084,7 +1150,7 @@ export const CHURCH_PROFILES: Record<string, ChurchTraditionProfile> = {
           es: 'Cambiar el Pánico por la Presencia de Dios',
         }),
         scriptureRef: 'Luke 21:19',
-        scriptureText: VERIFIED_SCRIPTURE_CORPUS['luke-21-19'].texts,
+        scriptureText: passageTexts('luke-21-19', 'grace-fellowship-us'),
         reflectionPrompt: makeMultilingual({
           en: 'Where are you trying to white-knuckle your week alone instead of leaning on Christ’s endurance?',
           it: 'Dove stai cercando di affrontare la settimana da solo invece di appoggiarti alla costanza di Cristo?',
@@ -1109,7 +1175,7 @@ export const CHURCH_PROFILES: Record<string, ChurchTraditionProfile> = {
           es: 'Sostenidos por la Mano de Dios',
         }),
         scriptureRef: 'Isaiah 41:10',
-        scriptureText: VERIFIED_SCRIPTURE_CORPUS['isaiah-41-10'].texts,
+        scriptureText: passageTexts('isaiah-41-10', 'grace-fellowship-us'),
         reflectionPrompt: makeMultilingual({
           en: 'Notice the four personal promises in Isaiah 41:10: “I am with you, I am your God, I will strengthen you, I will help you.” Which one do you need most today?',
           it: 'Quale delle quattro promesse di Isaia 41,10 parla di più al tuo cuore oggi?',
@@ -1133,7 +1199,7 @@ export const CHURCH_PROFILES: Record<string, ChurchTraditionProfile> = {
           it: 'Preghiera Sincera in una Comunità Sicura',
         }),
         scriptureRef: 'Psalm 34:18',
-        scriptureText: VERIFIED_SCRIPTURE_CORPUS['psalm-34-18'].texts,
+        scriptureText: passageTexts('psalm-34-18', 'grace-fellowship-us'),
         reflectionPrompt: makeMultilingual({
           en: 'God never asks us to fake a smile at church. What heavy burden can you bring honestly to Him today?',
           it: 'Dio non ci chiede di fingere un sorriso in chiesa. Quale peso puoi affidarGli oggi?',
@@ -1157,7 +1223,7 @@ export const CHURCH_PROFILES: Record<string, ChurchTraditionProfile> = {
           it: 'Entrare nel Tuo Piccolo Gruppo',
         }),
         scriptureRef: 'Matthew 11:28',
-        scriptureText: VERIFIED_SCRIPTURE_CORPUS['matthew-11-28'].texts,
+        scriptureText: passageTexts('matthew-11-28', 'grace-fellowship-us'),
         reflectionPrompt: makeMultilingual({
           en: 'How does sharing a meal and opening Scripture with others lighten the load you carry?',
           it: 'Come condividere un pasto e la Scrittura alleggerisce il tuo carico?',
@@ -1181,7 +1247,7 @@ export const CHURCH_PROFILES: Record<string, ChurchTraditionProfile> = {
           it: 'Canali della Provvidenza di Dio',
         }),
         scriptureRef: 'Philippians 4:19',
-        scriptureText: VERIFIED_SCRIPTURE_CORPUS['philippians-4-19'].texts,
+        scriptureText: passageTexts('philippians-4-19', 'grace-fellowship-us'),
         reflectionPrompt: makeMultilingual({
           en: 'How has God used the church family to meet a need in your life in the past?',
           it: 'Come Dio ha usato la comunità per rispondere a un tuo bisogno?',
@@ -1205,7 +1271,7 @@ export const CHURCH_PROFILES: Record<string, ChurchTraditionProfile> = {
           it: 'Il Giogo Dolce di Gesù',
         }),
         scriptureRef: 'Matthew 11:28',
-        scriptureText: VERIFIED_SCRIPTURE_CORPUS['matthew-11-28'].texts,
+        scriptureText: passageTexts('matthew-11-28', 'grace-fellowship-us'),
         reflectionPrompt: makeMultilingual({
           en: 'What noise can you turn off for one hour today to simply rest with God?',
           it: 'Quale rumore puoi spegnere per un’ora oggi per riposare in Dio?',
@@ -1229,7 +1295,7 @@ export const CHURCH_PROFILES: Record<string, ChurchTraditionProfile> = {
           it: 'Accogliere Chi Siede da Solo',
         }),
         scriptureRef: 'Luke 21:19',
-        scriptureText: VERIFIED_SCRIPTURE_CORPUS['luke-21-19'].texts,
+        scriptureText: passageTexts('luke-21-19', 'grace-fellowship-us'),
         reflectionPrompt: makeMultilingual({
           en: 'As you gather today, ask God to show you one newcomer in your row whom you can welcome warmly.',
           it: 'Chiedi a Dio di mostrarti un nuovo arrivato nella tua fila da salutare con calore.',
