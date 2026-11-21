@@ -8,6 +8,8 @@ Inspired by the Basilica di San Venanzio in Camerino, Italy, where students of U
 
 Track: **Care & Community** - AI for Church Hackathon 2026.
 
+**Live demo:** https://koinonia.netlayerlabs.com - staff can use the one-click demo accounts on the sign-in page. The public demo limits AI use per visitor and resets itself every night. How it is deployed: [`deploy/README.md`](deploy/README.md).
+
 ---
 
 ## What it does
