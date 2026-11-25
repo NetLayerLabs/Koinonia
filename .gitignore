@@ -6,3 +6,10 @@ server/data/
 .env.local
 .env.*.local
 .DS_Store
+
+# Demo film (video/): only the sources are committed
+video/node_modules/
+video/out/
+video/.cache/
+video/public/footage/
+video/public/stills/

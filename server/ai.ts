@@ -232,6 +232,7 @@ export async function triageRequest(input: {
 }): Promise<Triage> {
   const user = `Church: ${input.traditionLabel}. Sign the draft reply as the church's care team, never with a person's name: the pastor who approves it is named separately on the attendee's screen.
 Pastor language: ${input.pastorLanguage}. Attendee wrote in: ${input.attendeeLanguage}.
+Write summary_for_leader and draft_reply in ${input.pastorLanguage} only, never in ${input.attendeeLanguage}: the pastor reads and edits the draft in ${input.pastorLanguage}, and Koinonia translates it for the attendee afterwards, with a check.
 
 Approved passages (pick one id):
 ${input.verses.map((v) => `- ${v.id}: ${v.reference} - ${v.theme}`).join('\n')}

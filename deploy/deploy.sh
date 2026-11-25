@@ -8,7 +8,7 @@ DIR=/opt/koinonia
 cd "$(dirname "$0")/.."
 
 rsync -az --delete \
-  --exclude node_modules --exclude dist --exclude .git --exclude '*.tsbuildinfo' --exclude .DS_Store \
+  --exclude node_modules --exclude dist --exclude video --exclude .git --exclude '*.tsbuildinfo' --exclude .DS_Store \
   --exclude '.env' --exclude '.env.local' --exclude '.env.*.local' --exclude 'server/data' \
   ./ "$HOST:$DIR/"
 
