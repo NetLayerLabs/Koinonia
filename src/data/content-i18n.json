@@ -545,7 +545,6 @@
       "Benediction & 5-Minute Patio Meet-Up": "البركة الختامية ولقاء ٥ دقائق في الباحة",
       "Meet your matched LifeGroup host at the Next Steps tent on the patio for fresh coffee.": "قابل مضيف مجموعة الحياة (LifeGroup) المناسب لك عند خيمة الخطوات التالية في الباحة مع قهوة طازجة.",
       "Don’t leave unknown-find your weekday circle today.": "لا تغادر دون أن تتعرّف على أحد، فاعثر اليوم على حلقتك خلال الأسبوع.",
-      "Tap \"Small-Group Matcher\" to see your top 3 group recommendations": "اضغط على \"مطابِق المجموعات الصغيرة\" لترى أفضل ٣ مجموعات مقترحة لك",
       "Trading Panic for God’s Presence": "نستبدل الذعر بحضور الله",
       "Where are you trying to white-knuckle your week alone instead of leaning on Christ’s endurance?": "أين تحاول أن تتحمّل أسبوعك وحدك بقبضة مشدودة بدلًا من أن تتكئ على احتمال المسيح؟",
       "Start Monday with 2 minutes of Scripture reading before checking email or slack.": "ابدأ يوم الاثنين بدقيقتين من قراءة الكتاب المقدس قبل أن تفتح بريدك الإلكتروني أو Slack.",
@@ -582,7 +581,8 @@
       "Thursday • From Rows to Circles": "الخميس • من الصفوف إلى الدوائر",
       "Friday • Generosity & Provision": "الجمعة • السخاء والعناية",
       "Saturday • Unhurried Soul": "السبت • نفسٌ غير مستعجلة",
-      "Sunday • Gathered Again": "الأحد • مجتمعون من جديد"
+      "Sunday • Gathered Again": "الأحد • مجتمعون من جديد",
+      "Open Groups to see the ones that meet in your language first": "افتح «المجموعات» لترى أولًا المجموعات التي تجتمع بلغتك"
     },
     "pt": {
       "Anchors in the Storm: Why You Were Never Meant to Walk Alone": "Âncoras na Tempestade: Por Que Você Nunca Foi Feito para Caminhar Sozinho",
@@ -602,7 +602,6 @@
       "Benediction & 5-Minute Patio Meet-Up": "Bênção Final e Encontro de 5 Minutos no Pátio",
       "Meet your matched LifeGroup host at the Next Steps tent on the patio for fresh coffee.": "Encontre o seu anfitrião de LifeGroup, escolhido para você, na tenda Next Steps, no pátio, com café fresquinho.",
       "Don’t leave unknown-find your weekday circle today.": "Não vá embora sem ser conhecido - encontre hoje o seu círculo para os dias de semana.",
-      "Tap \"Small-Group Matcher\" to see your top 3 group recommendations": "Toque em \"Small-Group Matcher\" para ver as 3 principais recomendações de grupo para você",
       "Trading Panic for God’s Presence": "Trocando o Pânico pela Presença de Deus",
       "Where are you trying to white-knuckle your week alone instead of leaning on Christ’s endurance?": "Em que área você tem tentado enfrentar a semana sozinho, na força do braço, em vez de se apoiar na perseverança de Cristo?",
       "Start Monday with 2 minutes of Scripture reading before checking email or slack.": "Comece a segunda-feira com 2 minutos de leitura das Escrituras antes de ver o e-mail ou o Slack.",
@@ -639,7 +638,8 @@
       "Thursday • From Rows to Circles": "Quinta-feira • De Fileiras a Círculos",
       "Friday • Generosity & Provision": "Sexta-feira • Generosidade e Provisão",
       "Saturday • Unhurried Soul": "Sábado • Alma sem Pressa",
-      "Sunday • Gathered Again": "Domingo • Reunidos Outra Vez"
+      "Sunday • Gathered Again": "Domingo • Reunidos Outra Vez",
+      "Open Groups to see the ones that meet in your language first": "Abra Grupos para ver primeiro os que se reúnem no seu idioma"
     },
     "sw": {
       "Anchors in the Storm: Why You Were Never Meant to Walk Alone": "Nanga Katikati ya Dhoruba: Kwa Nini Hukuumbwa Kutembea Peke Yako",
@@ -659,7 +659,6 @@
       "Benediction & 5-Minute Patio Meet-Up": "Baraka ya Kuagana na Kukutana kwa Dakika 5 Patio",
       "Meet your matched LifeGroup host at the Next Steps tent on the patio for fresh coffee.": "Kutana na mwenyeji wako wa LifeGroup uliyeunganishwa naye kwenye hema la Next Steps kwenye patio na ufurahie kahawa mpya.",
       "Don’t leave unknown-find your weekday circle today.": "Usiondoke bila kujulikana, tafuta kundi lako la siku za wiki leo.",
-      "Tap \"Small-Group Matcher\" to see your top 3 group recommendations": "Gusa \"Small-Group Matcher\" ili uone mapendekezo yako 3 bora ya vikundi",
       "Trading Panic for God’s Presence": "Kubadilisha Hofu na Uwepo wa Mungu",
       "Where are you trying to white-knuckle your week alone instead of leaning on Christ’s endurance?": "Ni wapi unajaribu kuvumilia wiki yako peke yako kwa nguvu zako mwenyewe badala ya kutegemea uvumilivu wa Kristo?",
       "Start Monday with 2 minutes of Scripture reading before checking email or slack.": "Anza Jumatatu kwa dakika 2 za kusoma Maandiko kabla ya kuangalia barua pepe au slack.",
@@ -696,7 +695,8 @@
       "Thursday • From Rows to Circles": "Alhamisi • Kutoka Safu hadi Duara",
       "Friday • Generosity & Provision": "Ijumaa • Ukarimu na Riziki",
       "Saturday • Unhurried Soul": "Jumamosi • Roho Isiyo na Haraka",
-      "Sunday • Gathered Again": "Jumapili • Tumekusanyika Tena"
+      "Sunday • Gathered Again": "Jumapili • Tumekusanyika Tena",
+      "Open Groups to see the ones that meet in your language first": "Fungua \"Vikundi\" ili uone kwanza vile vinavyokutana kwa lugha yako"
     },
     "pl": {
       "Anchors in the Storm: Why You Were Never Meant to Walk Alone": "Kotwice w czasie burzy: dlaczego nigdy nie byłeś stworzony do tego, by iść samotnie",
@@ -716,7 +716,6 @@
       "Benediction & 5-Minute Patio Meet-Up": "Błogosławieństwo i 5-minutowe spotkanie na patio",
       "Meet your matched LifeGroup host at the Next Steps tent on the patio for fresh coffee.": "Spotkaj swojego dopasowanego gospodarza LifeGroup przy namiocie Next Steps na patio przy świeżej kawie.",
       "Don’t leave unknown-find your weekday circle today.": "Nie wychodź jako nieznajomy - znajdź dziś swój krąg na dni powszednie.",
-      "Tap \"Small-Group Matcher\" to see your top 3 group recommendations": "Dotknij „Small-Group Matcher”, aby zobaczyć 3 najlepsze propozycje grup dla Ciebie",
       "Trading Panic for God’s Presence": "Zamiana paniki na obecność Boga",
       "Where are you trying to white-knuckle your week alone instead of leaning on Christ’s endurance?": "W czym próbujesz przetrwać swój tydzień samotnie, zaciskając zęby, zamiast oprzeć się na wytrwałości Chrystusa?",
       "Start Monday with 2 minutes of Scripture reading before checking email or slack.": "Zacznij poniedziałek od 2 minut czytania Pisma Świętego, zanim sprawdzisz e-mail lub Slack.",
@@ -753,7 +752,8 @@
       "Thursday • From Rows to Circles": "Czwartek • Od rzędów do kręgów",
       "Friday • Generosity & Provision": "Piątek • Hojność i zaopatrzenie",
       "Saturday • Unhurried Soul": "Sobota • Dusza bez pośpiechu",
-      "Sunday • Gathered Again": "Niedziela • Znów razem"
+      "Sunday • Gathered Again": "Niedziela • Znów razem",
+      "Open Groups to see the ones that meet in your language first": "Otwórz zakładkę „Grupy”, aby zobaczyć najpierw te, które spotykają się w Twoim języku"
     },
     "vi": {
       "Anchors in the Storm: Why You Were Never Meant to Walk Alone": "Những chiếc neo giữa cơn bão: Vì sao bạn không bao giờ được dựng nên để bước đi một mình",
@@ -773,7 +773,6 @@
       "Benediction & 5-Minute Patio Meet-Up": "Lời chúc phước và buổi gặp gỡ 5 phút ngoài sân",
       "Meet your matched LifeGroup host at the Next Steps tent on the patio for fresh coffee.": "Hãy gặp người chủ nhà LifeGroup đã được ghép với bạn tại lều Next Steps ngoài sân để thưởng thức cà phê mới pha.",
       "Don’t leave unknown-find your weekday circle today.": "Đừng ra về khi chưa quen biết ai, hãy tìm nhóm nhỏ trong tuần của bạn ngay hôm nay.",
-      "Tap \"Small-Group Matcher\" to see your top 3 group recommendations": "Chạm vào \"Small-Group Matcher\" để xem 3 nhóm được đề xuất hàng đầu cho bạn",
       "Trading Panic for God’s Presence": "Đổi nỗi hoảng sợ lấy sự hiện diện của Đức Chúa Trời",
       "Where are you trying to white-knuckle your week alone instead of leaning on Christ’s endurance?": "Bạn đang cố gồng mình vượt qua một tuần một mình ở điểm nào, thay vì nương cậy vào sự nhẫn nại của Đấng Christ?",
       "Start Monday with 2 minutes of Scripture reading before checking email or slack.": "Hãy bắt đầu ngày Thứ Hai với 2 phút đọc Kinh Thánh trước khi kiểm tra email hay Slack.",
@@ -810,7 +809,8 @@
       "Thursday • From Rows to Circles": "Thứ Năm • Từ những hàng ghế đến những vòng tròn",
       "Friday • Generosity & Provision": "Thứ Sáu • Sự rộng rãi và sự cung ứng",
       "Saturday • Unhurried Soul": "Thứ Bảy • Tâm hồn thong dong",
-      "Sunday • Gathered Again": "Chúa Nhật • Lại được nhóm lại với nhau"
+      "Sunday • Gathered Again": "Chúa Nhật • Lại được nhóm lại với nhau",
+      "Open Groups to see the ones that meet in your language first": "Hãy mở mục Nhóm để xem trước những nhóm họp bằng ngôn ngữ của bạn"
     },
     "fr": {
       "Pastor David unpacks Luke 21 and Romans 5 to show that modern anxiety thrives in isolation. When life shakes-through job loss, family transitions, or starting over in a new city-God anchors us through His Word and through honest, everyday Christian community.": "Le pasteur David explique Luc 21 et Romains 5 pour montrer que l'anxiété moderne prospère dans l'isolement. Quand la vie est ébranlée, par une perte d'emploi, des changements familiaux ou un nouveau départ dans une nouvelle ville, Dieu nous ancre par Sa Parole et par une communauté chrétienne sincère et quotidienne.",
@@ -829,7 +829,6 @@
       "Benediction & 5-Minute Patio Meet-Up": "Bénédiction et rencontre de 5 minutes sur la terrasse",
       "Meet your matched LifeGroup host at the Next Steps tent on the patio for fresh coffee.": "Retrouvez votre hôte de LifeGroup au stand Next Steps sur la terrasse, autour d'un café frais.",
       "Don’t leave unknown-find your weekday circle today.": "Ne repartez pas dans l'anonymat, trouvez dès aujourd'hui votre cercle de la semaine.",
-      "Tap \"Small-Group Matcher\" to see your top 3 group recommendations": "Touchez « Small-Group Matcher » pour voir vos 3 meilleures recommandations de groupes",
       "Trading Panic for God’s Presence": "Troquer la panique contre la présence de Dieu",
       "Where are you trying to white-knuckle your week alone instead of leaning on Christ’s endurance?": "Où essayez-vous de traverser votre semaine seul, en serrant les poings, au lieu de vous appuyer sur l'endurance du Christ ?",
       "Start Monday with 2 minutes of Scripture reading before checking email or slack.": "Commencez le lundi par 2 minutes de lecture de l'Écriture avant de consulter vos courriels ou Slack.",
@@ -866,7 +865,8 @@
       "Thursday • From Rows to Circles": "Jeudi • Des rangées aux cercles",
       "Friday • Generosity & Provision": "Vendredi • Générosité et provision",
       "Saturday • Unhurried Soul": "Samedi • Une âme sans hâte",
-      "Sunday • Gathered Again": "Dimanche • Rassemblés à nouveau"
+      "Sunday • Gathered Again": "Dimanche • Rassemblés à nouveau",
+      "Open Groups to see the ones that meet in your language first": "Ouvrez « Groupes » pour voir en premier ceux qui se réunissent dans votre langue"
     },
     "zh": {
       "Call to Worship & Congregational Singing": "礼拜宣召与会众敬拜歌唱",
@@ -884,7 +884,6 @@
       "Benediction & 5-Minute Patio Meet-Up": "祝福祷告与5分钟露台聚会",
       "Meet your matched LifeGroup host at the Next Steps tent on the patio for fresh coffee.": "请到露台上的“下一步”帐篷,与为您匹配的生命小组带领人见面,并享用新鲜咖啡。",
       "Don’t leave unknown-find your weekday circle today.": "不要默默离开,今天就找到您平日的小组吧。",
-      "Tap \"Small-Group Matcher\" to see your top 3 group recommendations": "点击“Small-Group Matcher”,查看为您推荐的前3个小组",
       "Trading Panic for God’s Presence": "以上帝的同在换去惊慌",
       "Where are you trying to white-knuckle your week alone instead of leaning on Christ’s endurance?": "在哪些方面,您正独自咬紧牙关硬撑这一周,而不是倚靠基督的忍耐?",
       "Start Monday with 2 minutes of Scripture reading before checking email or slack.": "周一先花2分钟读经,再查看电子邮件或 Slack。",
@@ -921,7 +920,8 @@
       "Thursday • From Rows to Circles": "周四 • 从一排排到一圈圈",
       "Friday • Generosity & Provision": "周五 • 慷慨与供应",
       "Saturday • Unhurried Soul": "周六 • 从容的心灵",
-      "Sunday • Gathered Again": "周日 • 再次相聚"
+      "Sunday • Gathered Again": "周日 • 再次相聚",
+      "Open Groups to see the ones that meet in your language first": "打开“小组”,即可优先看到使用您的语言聚会的小组"
     },
     "uk": {
       "Anchors in the Storm: Why You Were Never Meant to Walk Alone": "Якорі в бурі: чому вам ніколи не судилося йти самотужки",
@@ -941,7 +941,6 @@
       "Benediction & 5-Minute Patio Meet-Up": "Благословення та 5-хвилинна зустріч на патіо",
       "Meet your matched LifeGroup host at the Next Steps tent on the patio for fresh coffee.": "Зустрінете свого підібраного ведучого LifeGroup біля намету Next Steps на патіо за чашкою свіжої кави.",
       "Don’t leave unknown-find your weekday circle today.": "Не йдіть, залишаючись невідомими - знайдіть сьогодні своє коло спілкування на буднях.",
-      "Tap \"Small-Group Matcher\" to see your top 3 group recommendations": "Натисніть «Small-Group Matcher», щоб побачити 3 найкращі рекомендації груп для вас",
       "Trading Panic for God’s Presence": "Обмінюємо паніку на Божу присутність",
       "Where are you trying to white-knuckle your week alone instead of leaning on Christ’s endurance?": "Де ви намагаєтеся самотужки, стиснувши зуби, пережити свій тиждень, замість того щоб спертися на Христову витривалість?",
       "Start Monday with 2 minutes of Scripture reading before checking email or slack.": "Почніть понеділок із 2 хвилин читання Святого Письма, перш ніж перевіряти пошту чи Slack.",
@@ -978,7 +977,8 @@
       "Thursday • From Rows to Circles": "Четвер • Від рядів до кіл",
       "Friday • Generosity & Provision": "П'ятниця • Щедрість і Боже забезпечення",
       "Saturday • Unhurried Soul": "Субота • Неквапна душа",
-      "Sunday • Gathered Again": "Неділя • Знову разом"
+      "Sunday • Gathered Again": "Неділя • Знову разом",
+      "Open Groups to see the ones that meet in your language first": "Відкрийте розділ «Групи», щоб спочатку побачити ті, що збираються вашою мовою"
     },
     "es": {
       "Singing together shifts our eyes from the size of our storm to the faithfulness of God.": "Cantar juntos aparta nuestros ojos del tamaño de nuestra tormenta y los dirige a la fidelidad de Dios.",
@@ -991,7 +991,6 @@
       "Take notes & bookmark Day 1 of your 7-Day Scripture Habit Journey": "Tome notas y marque como favorito el Día 1 de su Travesía de Hábito de las Escrituras de 7 días",
       "Meet your matched LifeGroup host at the Next Steps tent on the patio for fresh coffee.": "Conozca a su anfitrión de LifeGroup asignado en la carpa de Próximos Pasos (Next Steps), en el patio, con café recién hecho.",
       "Don’t leave unknown-find your weekday circle today.": "No se vaya sin conocer a nadie: encuentre hoy su círculo entre semana.",
-      "Tap \"Small-Group Matcher\" to see your top 3 group recommendations": "Toque «Small-Group Matcher» para ver sus 3 mejores recomendaciones de grupo",
       "Where are you trying to white-knuckle your week alone instead of leaning on Christ’s endurance?": "¿En qué área intenta sobrellevar su semana a puño cerrado y a solas, en lugar de apoyarse en la perseverancia de Cristo?",
       "Start Monday with 2 minutes of Scripture reading before checking email or slack.": "Comience el lunes con 2 minutos de lectura de las Escrituras antes de revisar el correo electrónico o Slack.",
       "For newcomers and international families settling into our neighborhood.": "Por los recién llegados y las familias internacionales que se están estableciendo en nuestro vecindario.",
@@ -1026,7 +1025,8 @@
       "Thursday • From Rows to Circles": "Jueves • De filas a círculos",
       "Friday • Generosity & Provision": "Viernes • Generosidad y provisión",
       "Saturday • Unhurried Soul": "Sábado • Un alma sin prisa",
-      "Sunday • Gathered Again": "Domingo • Reunidos de nuevo"
+      "Sunday • Gathered Again": "Domingo • Reunidos de nuevo",
+      "Open Groups to see the ones that meet in your language first": "Abra «Grupos» para ver primero los que se reúnen en su idioma"
     },
     "ko": {
       "Pastor David unpacks Luke 21 and Romans 5 to show that modern anxiety thrives in isolation. When life shakes-through job loss, family transitions, or starting over in a new city-God anchors us through His Word and through honest, everyday Christian community.": "David 목사님이 누가복음 21장과 로마서 5장을 풀어 주며, 현대인의 불안이 고립 속에서 자란다는 것을 보여 줍니다. 실직, 가정의 변화, 새로운 도시에서의 새 출발처럼 삶이 흔들릴 때에도 하나님은 말씀과 진솔하고 일상적인 그리스도인 공동체를 통해 우리를 붙들어 주십니다.",
@@ -1045,7 +1045,6 @@
       "Benediction & 5-Minute Patio Meet-Up": "축도 & 5분 파티오 모임",
       "Meet your matched LifeGroup host at the Next Steps tent on the patio for fresh coffee.": "파티오의 다음 단계(Next Steps) 텐트에서 매칭된 LifeGroup 호스트를 만나 갓 내린 커피를 나눠 보세요.",
       "Don’t leave unknown-find your weekday circle today.": "아무도 모른 채 떠나지 마시고, 오늘 평일 모임을 찾아 보세요.",
-      "Tap \"Small-Group Matcher\" to see your top 3 group recommendations": "\"Small-Group Matcher\"를 눌러 추천 소그룹 상위 3곳을 확인하세요",
       "Trading Panic for God’s Presence": "두려움 대신 하나님의 임재를",
       "Where are you trying to white-knuckle your week alone instead of leaning on Christ’s endurance?": "그리스도의 인내에 기대지 않고, 한 주를 혼자 이를 악물고 버티려 하는 부분은 어디인가요?",
       "Start Monday with 2 minutes of Scripture reading before checking email or slack.": "월요일을 이메일이나 슬랙을 확인하기 전에 2분간 성경을 읽으며 시작해 보세요.",
@@ -1082,7 +1081,8 @@
       "Thursday • From Rows to Circles": "목요일 • 줄에서 원으로",
       "Friday • Generosity & Provision": "금요일 • 나눔과 공급하심",
       "Saturday • Unhurried Soul": "토요일 • 서두르지 않는 영혼",
-      "Sunday • Gathered Again": "주일 • 다시 함께 모이다"
+      "Sunday • Gathered Again": "주일 • 다시 함께 모이다",
+      "Open Groups to see the ones that meet in your language first": "소모임 탭을 열면 회원님의 언어로 모이는 모임을 먼저 볼 수 있어요"
     },
     "it": {
       "Sunday Worship Gathering": "Culto domenicale",

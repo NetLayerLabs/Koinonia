@@ -1136,8 +1136,8 @@ export const CHURCH_PROFILES: Record<string, ChurchTraditionProfile> = {
           it: 'Non uscire da sconosciuto: trova il tuo gruppo oggi.',
         }),
         postureOrResponse: makeMultilingual({
-          en: 'Tap "Small-Group Matcher" to see your top 3 group recommendations',
-          it: 'Tocca "Trova Gruppo" per vedere i 3 gruppi consigliati per te',
+          en: 'Open Groups to see the ones that meet in your language first',
+          it: 'Apri Gruppi per vedere per primi quelli nella tua lingua',
         }),
       },
     ],
