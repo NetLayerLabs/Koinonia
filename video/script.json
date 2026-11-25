@@ -1,0 +1,227 @@
+{
+  "title": "Koinonia: every newcomer heard, in their own language",
+  "model": "eleven_multilingual_v2",
+  "voices": {
+    "narrator": {
+      "id": "JBFqnCBsd6RMkjVDRZzb",
+      "name": "George",
+      "settings": {
+        "stability": 0.5,
+        "similarity_boost": 0.8,
+        "style": 0.3,
+        "use_speaker_boost": true,
+        "speed": 0.98
+      }
+    }
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "seconds": 12,
+      "lines": [
+        {
+          "voice": "narrator",
+          "text": "Every Sunday, someone slips into the back pew with something heavy to carry."
+        },
+        {
+          "voice": "narrator",
+          "text": "The service is in a language they don't speak. So they stay silent."
+        }
+      ]
+    },
+    {
+      "id": "problem",
+      "seconds": 23,
+      "lines": [
+        {
+          "voice": "narrator",
+          "text": "In a university town like Camerino, in Italy, students from many countries worship beside local families."
+        },
+        {
+          "voice": "narrator",
+          "text": "Translation apps help them hear the sermon. Nothing helps them be heard."
+        },
+        {
+          "voice": "narrator",
+          "text": "And when a request does arrive in Chinese or Spanish, the care team can't read it, or pastes it, names and all, into a public chatbot."
+        }
+      ]
+    },
+    {
+      "id": "turn",
+      "seconds": 13,
+      "lines": [
+        {
+          "voice": "narrator",
+          "text": "Koinonia is a two-way pastoral care bridge.",
+          "say": "Koy-noh-nee-ah is a two-way pastoral care bridge."
+        },
+        {
+          "voice": "narrator",
+          "text": "A newcomer asks in their language. A pastor answers in theirs. And a person approves every word."
+        }
+      ]
+    },
+    {
+      "id": "pew",
+      "seconds": 22,
+      "lines": [
+        {
+          "voice": "narrator",
+          "text": "It starts with a card in the pew. No app. No account."
+        },
+        {
+          "voice": "narrator",
+          "text": "One tap, and the whole page speaks their language. Arabic reads right to left."
+        },
+        {
+          "voice": "narrator",
+          "text": "In Italian, the homily is read aloud in a native voice."
+        }
+      ]
+    },
+    {
+      "id": "ask",
+      "seconds": 18,
+      "lines": [
+        {
+          "voice": "narrator",
+          "text": "Lucía arrived from Bogotá three weeks ago. She writes in Spanish."
+        },
+        {
+          "voice": "narrator",
+          "text": "As she types, her name and her number are removed, right on her phone. They never leave it."
+        },
+        {
+          "voice": "narrator",
+          "text": "She sends it, and gets a private code. Nothing else."
+        }
+      ]
+    },
+    {
+      "id": "bridge",
+      "seconds": 29,
+      "lines": [
+        {
+          "voice": "narrator",
+          "text": "At the parish, the request is already waiting, in English."
+        },
+        {
+          "voice": "narrator",
+          "text": "Claude writes a short summary, suggests a psalm and a group, and drafts a reply for the pastor to make their own."
+        },
+        {
+          "voice": "narrator",
+          "text": "Then Koinonia translates the reply into Spanish, and translates it back with a separate call that never saw the original.",
+          "say": "Then Koy-noh-nee-ah translates the reply into Spanish, and translates it back with a separate call that never saw the original."
+        },
+        {
+          "voice": "narrator",
+          "text": "Meaning kept. Only now does Approve unlock."
+        },
+        {
+          "voice": "narrator",
+          "text": "The AI drafts. A pastor decides."
+        }
+      ]
+    },
+    {
+      "id": "reply",
+      "seconds": 15.5,
+      "lines": [
+        {
+          "voice": "narrator",
+          "text": "Lucía opens her code. The reply is in Spanish, approved by name, with a psalm, and an invitation."
+        },
+        {
+          "voice": "narrator",
+          "text": "Tuesday night, the students' group. A table to sit at."
+        }
+      ]
+    },
+    {
+      "id": "crisis",
+      "seconds": 18,
+      "lines": [
+        {
+          "voice": "narrator",
+          "text": "Some messages cannot wait."
+        },
+        {
+          "voice": "narrator",
+          "text": "When someone writes that they are not safe, the AI is never asked. Their phone shows local crisis lines at once, and the care team's screen turns red."
+        },
+        {
+          "voice": "narrator",
+          "text": "A cry for help is always answered by a person."
+        }
+      ]
+    },
+    {
+      "id": "words",
+      "seconds": 18.5,
+      "lines": [
+        {
+          "voice": "narrator",
+          "text": "Words matter too. In Korean, Catholics and Protestants even name God differently."
+        },
+        {
+          "voice": "narrator",
+          "text": "A glossary the pastor approves once keeps every translation in the church's own words, down to the tabs of the app: Mass for the parish, worship for the church across town."
+        }
+      ]
+    },
+    {
+      "id": "sunday",
+      "seconds": 16,
+      "lines": [
+        {
+          "voice": "narrator",
+          "text": "During the service, a volunteer taps Next, and every phone in the pews follows along."
+        },
+        {
+          "voice": "narrator",
+          "text": "Koinonia counts languages, never names, and shows the welcome team where a group is arriving with no one to greet them.",
+          "say": "Koy-noh-nee-ah counts languages, never names, and shows the welcome team where a group is arriving with no one to greet them."
+        }
+      ]
+    },
+    {
+      "id": "stack",
+      "seconds": 22.5,
+      "lines": [
+        {
+          "voice": "narrator",
+          "text": "Under the hood, Claude, served through the 0G Compute Network, summarises, drafts, translates, and checks. ElevenLabs gives every language a native voice.",
+          "say": "Under the hood, Claude, served through the zero G compute network, summarises, drafts, translates, and checks. ElevenLabs gives every language a native voice."
+        },
+        {
+          "voice": "narrator",
+          "text": "Claude never sees personal details. Never writes Bible text. Never answers a crisis. And never sends a word without a person's approval."
+        }
+      ]
+    },
+    {
+      "id": "why",
+      "seconds": 12.5,
+      "lines": [
+        {
+          "voice": "narrator",
+          "text": "Translation helps people hear. Koinonia helps them be heard: privacy on the phone, a meaning check before every reply, and a person for every cry for help.",
+          "say": "Translation helps people hear. Koy-noh-nee-ah helps them be heard: privacy on the phone, a meaning check before every reply, and a person for every cry for help."
+        }
+      ]
+    },
+    {
+      "id": "close",
+      "seconds": 12,
+      "lines": [
+        {
+          "voice": "narrator",
+          "text": "Koinonia. Every newcomer, heard.",
+          "say": "Koy-noh-nee-ah. Every newcomer, heard."
+        }
+      ]
+    }
+  ]
+}

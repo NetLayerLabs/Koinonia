@@ -1,0 +1,34 @@
+TITLE
+Koinonia: every newcomer in the pew, heard (AI for Church Hackathon 2026)
+
+DESCRIPTION
+Every Sunday, someone slips into the back pew with something heavy to carry, and nobody there speaks their language. Koinonia is a two-way pastoral care bridge: a newcomer asks for prayer or help in their own language, a pastor answers in theirs, and a person approves every word.
+
+In this film, recorded on the live app:
+- the pew page in 12 languages (Arabic right to left), with the homily read aloud in a native voice
+- a prayer request whose name and phone number are removed on the phone before it is sent
+- the Care Bridge: an AI summary and draft, a translation checked by an independent back-translation, and a pastor's approval
+- the crisis lane: crisis lines at once, a person alerted, no AI reply
+- a tradition glossary that keeps each church's own words (하느님 / 하나님, 미사 / 예배)
+- live service cues and welcome-team insights
+
+Try it: https://koinonia.netlayerlabs.com
+Built for the AI for Church Hackathon 2026, Care & Community track.
+AI: Claude through the 0G Compute Network. Voices: ElevenLabs.
+
+A dramatization with stock footage (Mixkit). The app, its screens, its AI replies and its voices are real, recorded on the live site. The churches are sample data with fictional people.
+
+CHAPTERS
+0:00 A story
+0:12 The problem
+0:35 Koinonia
+0:48 The pew page
+1:10 Asking privately
+1:28 The Care Bridge
+1:57 The reply
+2:12 The crisis lane
+2:30 The church's own words
+2:49 Sunday together
+3:05 Under the hood
+3:27 Why it is different
+3:40 Every newcomer, heard

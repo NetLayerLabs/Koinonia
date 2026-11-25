@@ -1,0 +1,42 @@
+{
+ "_about": "Every value the film shows, read from the live app at koinonia.netlayerlabs.com on 2026-11-25 (scripts/capture.mjs -> .cache/capture.json) or from the app's sample data.",
+ "request": "Hola, me llamo Lucía Gómez. Llegué de Bogotá hace tres semanas para estudiar y me siento muy sola. Mi número es +39 347 812 5531. ¿Pueden orar por mí?",
+ "requestSent": "Hola, me llamo [PERSON_REDACTED_1]. Llegué de Bogotá hace tres semanas para estudiar y me siento muy sola. Mi número es [PHONE_REDACTED_1]. ¿Pueden orar por mí?",
+ "code": "FG3-D57",
+ "draft": "Dear sister, thank you for writing to us, and welcome to Camerino and to our parish family at San Venanzio. Starting a new life so far from home is not easy, and feeling lonely in these first weeks makes complete sense. We are holding you in our prayers and entrusting you to Our Lady's care. We'd love for you to join the Comunidad Erasmus & Latinoamericana San Venanzio, a warm group of Spanish- and Portuguese-speaking students who meet on Tuesdays at 20:30, so you can find friends who understand what you're going through. With affection and prayers, the Pastoral Care Team of the Basilica di San Venanzio.",
+ "spanish": "Querida hermana, gracias por escribirnos y bienvenida a Camerino y a nuestra familia parroquial de San Venanzio. Comenzar una nueva vida tan lejos de casa no es fácil, y sentirse sola en estas primeras semanas es completamente comprensible. Te tenemos presente en nuestras oraciones y te encomendamos al cuidado de Nuestra Señora. Nos encantaría que te unieras a la Comunidad Erasmus & Latinoamericana San Venanzio, un grupo cálido de estudiantes de habla hispana y portuguesa que se reúne los martes a las 20:30, para que puedas encontrar amigos que entiendan lo que estás viviendo. Con cariño y oraciones, el Equipo de Pastoral de la Basilica di San Venanzio.",
+ "verdict": "Meaning kept",
+ "approved": "Approved. The attendee can read the reply with code FG3-D57.",
+ "approvedBy": "Fr. Andrea Ricci",
+ "psalm": "Psalm 34:18 (Salmo 34,19)",
+ "psalmText": "«Cercano está el Señor a los quebrantados de corazón, y salva a los contritos de espíritu.»",
+ "group": "Comunidad Erasmus & Latinoamericana San Venanzio",
+ "groupWhen": "Tuesdays · 20:30 CET · Centro Pastorale Universitario",
+ "crisisTyped": "I don't feel safe at home tonight.",
+ "crisisLines": [
+  [
+   "Emergency (Italy)",
+   "112"
+  ],
+  [
+   "Anti-violence & stalking line",
+   "1522"
+  ]
+ ],
+ "alert": "Urgent request: crisis signals detected. A person needs to respond now.",
+ "glossSentence": "God loves you, and the Holy Spirit is with you. Our pastor would be glad to see you at the service this Sunday.",
+ "glossWithout": "하나님께서 당신을 사랑하시며, 성령님께서 당신과 함께하십니다. 저희 목사님께서도 이번 주일 예배에서 당신을 뵙게 되면 기쁘시겠습니다.",
+ "glossWith": "하느님께서 여러분을 사랑하시고, 성령께서 여러분과 함께하십니다. 저희 신부님께서는 이번 주일 미사에서 여러분을 뵙게 되면 기뻐하실 것입니다.",
+ "koTabs": {
+  "catholic": "강론 | 미사 | 기도 | 더보기",
+  "protestant": "설교 | 예배 | 기도 | 더보기"
+ },
+ "zhSample": "我今天第一次走进圣维南齐奥大殿，看到地震后重建的教堂非常感动。",
+ "italianService": [
+  "Riti di Introduzione",
+  "Liturgia della Parola",
+  "Liturgia Eucaristica",
+  "Benedizione"
+ ],
+ "homilyItalian": "Quando la Terra Trema: Una Speranza Incrollabile Lontano da Casa. «Con la vostra perseveranza salverete la vostra vita... E la speranza non delude, perché l’amo"
+}

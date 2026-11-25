@@ -1,0 +1,266 @@
+{
+ "insights": {
+  "file": "footage/insights.mp4",
+  "width": 3200,
+  "height": 1800,
+  "durationFrames": 218,
+  "marks": {
+   "notes": 76
+  },
+  "kind": "desk",
+  "view": {
+   "width": 1600,
+   "height": 900
+  },
+  "rects": {
+   "notes": {
+    "x": 1055,
+    "y": 214,
+    "w": 481,
+    "h": 17
+   },
+   "arabic": {
+    "x": 1095,
+    "y": 243,
+    "w": 441,
+    "h": 69
+   }
+  }
+ },
+ "ko-cath": {
+  "file": "footage/ko-cath.mp4",
+  "width": 1170,
+  "height": 2532,
+  "durationFrames": 164,
+  "marks": {
+   "tab": 85
+  },
+  "kind": "phone",
+  "view": {
+   "width": 390,
+   "height": 844
+  },
+  "rects": {}
+ },
+ "ko-prot": {
+  "file": "footage/ko-prot.mp4",
+  "width": 1170,
+  "height": 2532,
+  "durationFrames": 165,
+  "marks": {
+   "tab": 86
+  },
+  "kind": "phone",
+  "view": {
+   "width": 390,
+   "height": 844
+  },
+  "rects": {}
+ },
+ "landing": {
+  "file": "footage/landing.mp4",
+  "width": 3200,
+  "height": 1800,
+  "durationFrames": 432,
+  "marks": {
+   "scroll": 269
+  },
+  "kind": "desk",
+  "view": {
+   "width": 1600,
+   "height": 900
+  },
+  "rects": {}
+ },
+ "lang": {
+  "file": "footage/lang.mp4",
+  "width": 1170,
+  "height": 2532,
+  "durationFrames": 696,
+  "marks": {
+   "picker": 84,
+   "ar": 123,
+   "picker2": 366,
+   "it": 398,
+   "listen": 540
+  },
+  "kind": "phone",
+  "view": {
+   "width": 390,
+   "height": 844
+  },
+  "rects": {}
+ },
+ "alert": {
+  "file": "footage/alert.mp4",
+  "width": 3200,
+  "height": 1800,
+  "durationFrames": 717,
+  "marks": {
+   "seen": 476,
+   "open": 624
+  },
+  "kind": "desk",
+  "view": {
+   "width": 1600,
+   "height": 900
+  },
+  "rects": {}
+ },
+ "arrive": {
+  "file": "footage/arrive.mp4",
+  "width": 3200,
+  "height": 1800,
+  "durationFrames": 983,
+  "marks": {
+   "landed": 934
+  },
+  "kind": "desk",
+  "view": {
+   "width": 1600,
+   "height": 900
+  },
+  "rects": {}
+ },
+ "ask": {
+  "file": "footage/ask.mp4",
+  "width": 1170,
+  "height": 2532,
+  "durationFrames": 869,
+  "marks": {
+   "tab": 71,
+   "type": 114,
+   "typed": 358,
+   "preview": 427,
+   "send": 520,
+   "code": 753
+  },
+  "kind": "phone",
+  "view": {
+   "width": 390,
+   "height": 844
+  },
+  "rects": {}
+ },
+ "bridge": {
+  "file": "footage/bridge.mp4",
+  "width": 3200,
+  "height": 1800,
+  "durationFrames": 1286,
+  "marks": {
+   "open": 116,
+   "draft": 244,
+   "check": 357,
+   "checked": 848,
+   "result": 1002,
+   "approve": 1173
+  },
+  "kind": "desk",
+  "view": {
+   "width": 1600,
+   "height": 900
+  },
+  "rects": {
+   "item": {
+    "x": 313,
+    "y": 559,
+    "w": 504,
+    "h": 163
+   },
+   "summary": {
+    "x": 312,
+    "y": 103,
+    "w": 768,
+    "h": 78
+   },
+   "check": {
+    "x": 943,
+    "y": 607,
+    "w": 312,
+    "h": 40
+   }
+  }
+ },
+ "crisis": {
+  "file": "footage/crisis.mp4",
+  "width": 1170,
+  "height": 2532,
+  "durationFrames": 480,
+  "marks": {
+   "type": 101,
+   "send": 216
+  },
+  "kind": "phone",
+  "view": {
+   "width": 390,
+   "height": 844
+  },
+  "rects": {}
+ },
+ "follow": {
+  "file": "footage/follow.mp4",
+  "width": 1170,
+  "height": 2532,
+  "durationFrames": 413,
+  "marks": {
+   "on": 85
+  },
+  "kind": "phone",
+  "view": {
+   "width": 390,
+   "height": 844
+  },
+  "rects": {}
+ },
+ "gloss": {
+  "file": "footage/gloss.mp4",
+  "width": 3200,
+  "height": 1800,
+  "durationFrames": 647,
+  "marks": {
+   "open": 101,
+   "ko": 163,
+   "compare": 276,
+   "result": 451
+  },
+  "kind": "desk",
+  "view": {
+   "width": 1600,
+   "height": 900
+  },
+  "rects": {}
+ },
+ "live": {
+  "file": "footage/live.mp4",
+  "width": 3200,
+  "height": 1800,
+  "durationFrames": 408,
+  "marks": {
+   "next1": 160,
+   "next2": 297
+  },
+  "kind": "desk",
+  "view": {
+   "width": 1600,
+   "height": 900
+  },
+  "rects": {}
+ },
+ "reply": {
+  "file": "footage/reply.mp4",
+  "width": 1170,
+  "height": 2532,
+  "durationFrames": 524,
+  "marks": {
+   "codes": 102,
+   "open": 152,
+   "scroll": 298
+  },
+  "kind": "phone",
+  "view": {
+   "width": 390,
+   "height": 844
+  },
+  "rects": {}
+ }
+}
