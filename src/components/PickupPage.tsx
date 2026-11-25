@@ -3,8 +3,9 @@ import { ChevronLeft, Loader2 } from 'lucide-react';
 import { Wordmark } from './brand/Logo';
 import { IconCandle, IconKey, IconLectern, IconSeal, IconTable } from './brand/Icons';
 import { CHURCH_PROFILES, SUPPORTED_LANGUAGES, scriptureFor } from '../data/koinoniaData';
-import { api } from '../lib/api';
+import { api, ApiError } from '../lib/api';
 import { loadMyRequests, originalForCode } from '../lib/local';
+import { LANG_CODES } from '../shared/languages';
 import { useT } from '../lib/i18n';
 import { go } from '../lib/router';
 import type { LangCode } from '../shared/languages';
@@ -13,13 +14,29 @@ import type { SupportedLanguageCode } from '../types/koinonia';
 import { CrisisPanel } from './CrisisPanel';
 import { dropTokens, restoreOnDevice } from '../lib/restore';
 
+/** "kujcu7", "KUJ CU7" and "kuj-cu7" all mean KUJ-CU7: people type codes however they like. */
+export function normalizeCode(raw: string): string {
+  const c = raw.toUpperCase().replace(/[^A-Z0-9]/g, '');
+  return c.length === 6 ? `${c.slice(0, 3)}-${c.slice(3)}` : raw.trim().toUpperCase();
+}
+
+/** The language this phone last read the pew page in, so the page speaks it before a code is found. */
+function lastPewLanguage(): LangCode | undefined {
+  try {
+    const v = JSON.parse(localStorage.getItem('koinonia.pewLang') ?? 'null');
+    return LANG_CODES.includes(v) ? (v as LangCode) : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
 export const PickupPage: React.FC<{ code: string | null }> = ({ code }) => {
   const [input, setInput] = useState(code ?? '');
   const [view, setView] = useState<PickupView | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const mine = loadMyRequests();
-  const uiLang = (view?.language ?? (mine[0]?.language as LangCode | undefined) ?? 'en') as LangCode;
+  const uiLang = (view?.language ?? (mine[0]?.language as LangCode | undefined) ?? lastPewLanguage() ?? 'en') as LangCode;
   const t = useT(uiLang, view?.tradition);
   const meta = SUPPORTED_LANGUAGES.find((l) => l.code === uiLang) ?? SUPPORTED_LANGUAGES[0];
 
@@ -28,14 +45,23 @@ export const PickupPage: React.FC<{ code: string | null }> = ({ code }) => {
     setLoading(true);
     setError(null);
     try {
-      setView(await api.pickup(c.trim()));
+      setView(await api.pickup(normalizeCode(c)));
     } catch (e) {
       setView(null);
-      setError(e instanceof Error ? e.message : t('pickup.notFound'));
+      // A wrong code gets the localized message; anything else (offline, server error) says what happened.
+      setError(e instanceof ApiError && e.status !== 404 ? e.message : t('pickup.notFound'));
     } finally {
       setLoading(false);
     }
   };
+
+  // Screen readers and fonts follow the page language (the root is English by default).
+  useEffect(() => {
+    document.documentElement.lang = uiLang;
+    return () => {
+      document.documentElement.lang = 'en';
+    };
+  }, [uiLang]);
 
   useEffect(() => {
     if (code) lookup(code);
@@ -82,8 +108,10 @@ export const PickupPage: React.FC<{ code: string | null }> = ({ code }) => {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                go(`/pickup/${input.trim().toUpperCase()}`);
-                lookup(input);
+                const c = normalizeCode(input);
+                setInput(c);
+                go(`/pickup/${c}`);
+                lookup(c);
               }}
               className="space-y-2"
             >
@@ -155,7 +183,10 @@ export const PickupPage: React.FC<{ code: string | null }> = ({ code }) => {
                   <p className="rubric flex items-center gap-1.5">
                     <IconLectern className="w-4 h-4" /> {verse.reference}
                   </p>
-                  <p className="font-serif italic text-[1.15rem] leading-relaxed text-ink-2">{verse.texts[view.language as SupportedLanguageCode]}</p>
+                  <p dir="auto" className="font-serif italic text-[1.15rem] leading-relaxed text-ink-2">{verse.texts[view.language as SupportedLanguageCode]}</p>
+                  {view.language !== 'en' && verse.texts[view.language as SupportedLanguageCode] === verse.texts.en && (
+                    <p className="text-sm text-ink-3">{t('message.verseEnglishOnly', { language: meta.nativeName })}</p>
+                  )}
                 </div>
               )}
 

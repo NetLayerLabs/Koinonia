@@ -52,8 +52,8 @@ export const CrisisPanel: React.FC<Props> = ({ tradition, lang, code, rtl }) => 
               dir="ltr"
             >
               <span className="min-w-0">
-                <span className="block font-semibold text-ink">{l.label}</span>
-                <span className="block text-sm text-ink-3">{l.note}</span>
+                <span dir="auto" className="block font-semibold text-ink">{t(`crisis.line.${l.id}`)}</span>
+                <span dir="auto" className="block text-sm text-ink-3">{t(`crisis.note.${l.id}`)}</span>
               </span>
               <span className="flex items-center gap-2 font-mono text-xl font-semibold text-alarm whitespace-nowrap">
                 <Phone className="w-5 h-5" /> {l.number}

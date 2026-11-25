@@ -127,6 +127,13 @@ function PewOnly({ traditionId, initialLang }: { traditionId: ChurchTraditionId;
   }, [initialLang]);
   const journey = useJourney(traditionId);
   const strings = PEW_STRINGS[lang];
+  // Screen readers and fonts follow the reader's language (the root is English by default).
+  useEffect(() => {
+    document.documentElement.lang = lang;
+    return () => {
+      document.documentElement.lang = 'en';
+    };
+  }, [lang]);
   return (
     // The whole attendee page follows the chosen language's direction (Arabic: right to left).
     <div className="min-h-screen" dir={strings.dir}>
@@ -404,6 +411,7 @@ function Dashboard({
             profile={profile}
             aiOn={aiOn}
             canPublish={can(role, 'sermon:publish')}
+            staffName={staffName}
             onToast={setToast}
             onNavigateToPew={() => setTab('pew')}
           />

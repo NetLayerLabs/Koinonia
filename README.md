@@ -302,7 +302,7 @@ flowchart LR
 | Pickup codes, the approval gate, roles and sessions, live events | The Bible passages are demo text; a church would connect its licensed translation |
 | ElevenLabs native voices for all 12 languages | The language-insights history is generated sample data and labelled as such in the app; real scans are added on top |
 | Publishing Sunday notes into 12 languages with the glossary | The greeter rota, volunteer gaps and the newsletter impact story are sample text; no invitations are sent |
-| The interface in 12 languages | The interface translations were made once by Claude and say so in the app; they have not yet been checked by native speakers |
+| The interface, the service guide and the 7-day plan in 12 languages | These translations were made once by Claude (each church's own text with its glossary) and the app says so; they have not yet been checked by native speakers. Bible passages are never machine-translated: a passage not yet stored in a language is shown in English, with a note saying so |
 
 ## Tech stack
 
@@ -352,13 +352,14 @@ npm run typecheck            # app and server
 npm run build                # production build into dist/
 ```
 
-To regenerate the interface translations after changing `src/lib/i18n/en.ts`, run this (it translates only missing keys):
+To regenerate the translations after changing `src/lib/i18n/en.ts` (interface) or a church's text in `src/data/koinoniaData.ts` (service guide, 7-day plan), run these. Each translates only what is missing; Bible text is never sent:
 
 ```bash
 node --env-file-if-exists=.env.local server/scripts/translate-ui.ts
+node --env-file-if-exists=.env.local server/scripts/translate-content.ts
 ```
 
-> **Status, 21 November 2026, 13:02 UTC:** `npm run typecheck` completes with no errors; `npm run build` reports `✓ 2235 modules transformed` and `✓ built in 1.02s`. There is no automated test suite yet.
+> **Status, 25 November 2026:** `npm run typecheck` completes with no errors; `npm run build` reports `✓ 2237 modules transformed` and `✓ built in 811ms`. There is no automated test suite yet; an end-to-end check of every route, role, language and the care, crisis, pickup and live flows passed on this date.
 
 ## Deploying
 
@@ -383,13 +384,14 @@ public/
 server/
   index.ts                 the API: care queue, approval gate, crisis lane, pickup, glossary,
                            live events, Sunday notes, read-aloud, sign-in
-  ai.ts                    Claude calls (triage, translate, back-translate, compare, notes, UI strings)
+  ai.ts                    Claude calls (triage, translate, back-translate, compare, notes, UI and church text)
   auth.ts                  staff sessions, passcode, lockout
   limits.ts                public-demo budgets and the nightly reset
   tts.ts                   ElevenLabs voices and the clip cache
   store.ts                 JSON store (scrubbed data only)
   sample.ts                labelled sample output when AI is off
   scripts/translate-ui.ts  one-time interface translation
+  scripts/translate-content.ts  one-time translation of each church's service guide and 7-day plan
 src/
   App.tsx                  routes, staff gate, sidebar and phone tab bar
   shared/                  code used by browser and server: crisis screen, glossary,
@@ -420,14 +422,12 @@ SUBMISSION_GUIDE.md        hackathon description, video script, checklist
 
 ## Pre-existing work and credits
 
-- **Starting point:** an earlier Koinonia prototype by the same author (a front-end mock-up with sample church data). During the hackathon it was rebuilt into a working app: the server, AI, privacy shield, crisis lane, roles, voices, localisation, design system, phone app and deployment.
 - **Libraries and services:**
   - React, Vite, Tailwind CSS, TypeScript, lucide-react, qrcode and Zod (MIT or ISC licences);
   - the Anthropic TypeScript SDK;
   - typefaces from Google Fonts (SIL Open Font License);
   - ElevenLabs voices from its voice library, used under the account's plan;
   - Claude, served through the 0G Compute Network.
-- **Design references, not code:** the HSL (Helsinki transport) app for the phone tab-bar pattern; Fluenci and Brokro for the collapsible sidebar.
 - **Built with:** Claude Code.
 
 ## License

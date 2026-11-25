@@ -4,6 +4,7 @@ import {
   SupportedLanguageCode,
   VerifiedScripture,
 } from '../types/koinonia';
+import CONTENT_I18N from './content-i18n.json';
 
 export const SUPPORTED_LANGUAGES: LanguageOption[] = [
   {
@@ -81,24 +82,24 @@ export const SUPPORTED_LANGUAGES: LanguageOption[] = [
   },
 ];
 
-// Helper to ensure all 12 languages always return rich text
+const CONTENT_LANGS: SupportedLanguageCode[] = ['es', 'fr', 'zh', 'ar', 'sw', 'pt', 'pl', 'ko', 'vi', 'uk'];
+
+/** Languages each record was not written in (filled with English until a translation is found). */
+const FELL_BACK = new WeakMap<object, SupportedLanguageCode[]>();
+
+// Every record has all 12 languages; a language that was not written falls back to English here,
+// then to the church's saved translation (fillContentTranslations, below), never Bible text.
 function makeMultilingual(
   base: Partial<Record<SupportedLanguageCode, string>> & { en: string; it: string }
 ): Record<SupportedLanguageCode, string> {
-  return {
-    en: base.en,
-    it: base.it,
-    es: base.es || base.en,
-    fr: base.fr || base.en,
-    zh: base.zh || base.en,
-    ar: base.ar || base.en,
-    sw: base.sw || base.en,
-    pt: base.pt || base.en,
-    pl: base.pl || base.en,
-    ko: base.ko || base.en,
-    vi: base.vi || base.en,
-    uk: base.uk || base.en,
-  };
+  const out = { en: base.en, it: base.it } as Record<SupportedLanguageCode, string>;
+  const missing: SupportedLanguageCode[] = [];
+  for (const l of CONTENT_LANGS) {
+    out[l] = base[l] || base.en;
+    if (!base[l]) missing.push(l);
+  }
+  if (missing.length) FELL_BACK.set(out, missing);
+  return out;
 }
 
 export const VERIFIED_SCRIPTURE_CORPUS: Record<string, VerifiedScripture> = {
@@ -1467,3 +1468,66 @@ export const CHURCH_PROFILES: Record<string, ChurchTraditionProfile> = {
     },
   },
 };
+
+// ---------- Translations of each church's own text ----------
+// The service guide, 7-day plan and a few labels were written in English and Italian. The other
+// languages come from content-i18n.json: translated once with Claude, using the church's own
+// glossary (server/scripts/translate-content.ts), and saved in the app. Bible text is never
+// translated by AI: a verse missing in a language is shown in English, and the page says so.
+
+type ContentMap = Record<string, Partial<Record<SupportedLanguageCode, Record<string, string>>>>;
+const CONTENT = CONTENT_I18N as ContentMap;
+const SCRIPTURE_KEYS = new Set(['primaryScripture', 'scriptureText', 'texts']);
+
+/** Plain English labels shown on the pew page as well as the multilingual records. */
+const LABEL_KEYS = new Set(['dayLabel', 'serviceTerm', 'currentSeriesTitle']);
+
+function eachRecord(node: unknown, visit: (record: Record<SupportedLanguageCode, string>, missing: SupportedLanguageCode[]) => void, key = ''): void {
+  if (!node || typeof node !== 'object' || SCRIPTURE_KEYS.has(key)) return;
+  const missing = FELL_BACK.get(node as object);
+  if (missing) return visit(node as Record<SupportedLanguageCode, string>, missing);
+  for (const [k, v] of Object.entries(node)) eachRecord(v, visit, k);
+}
+
+function eachLabel(node: unknown, visit: (text: string) => void, key = ''): void {
+  if (!node || typeof node !== 'object' || SCRIPTURE_KEYS.has(key)) return;
+  for (const [k, v] of Object.entries(node)) {
+    if (typeof v === 'string' && LABEL_KEYS.has(k)) visit(v);
+    else eachLabel(v, visit, k);
+  }
+}
+
+/**
+ * In Arabic (right to left), a Latin-script run in brackets such as "(Liturgia della Parola)" would be
+ * split and its brackets flipped. Unicode isolates keep it as one left-to-right unit.
+ */
+function forDirection(lang: SupportedLanguageCode, text: string): string {
+  if (lang !== 'ar') return text;
+  return text.replace(/[(«]\s*[A-Za-zÀ-ÿ][^()«»]*[)»]/g, (run) => `\u2068${run}\u2069`);
+}
+
+/** A church's own label in the reader's language, or the English when it has no translation yet. */
+export function contentText(tradition: string, lang: SupportedLanguageCode, english: string): string {
+  if (lang === 'en') return english;
+  const translated = CONTENT[tradition]?.[lang]?.[english];
+  return translated ? forDirection(lang, translated) : english;
+}
+
+/** Every English text of one church still waiting for a translation, by language (for the script). */
+export function untranslatedContent(tradition: string): Partial<Record<SupportedLanguageCode, string[]>> {
+  const out: Partial<Record<SupportedLanguageCode, Set<string>>> = {};
+  const add = (l: SupportedLanguageCode, en: string) => (out[l] ??= new Set()).add(en);
+  eachRecord(CHURCH_PROFILES[tradition], (record, missing) => missing.forEach((l) => record[l] === record.en && add(l, record.en)));
+  // Labels are plain English strings, so Italian needs them too.
+  eachLabel(CHURCH_PROFILES[tradition], (en) => (['it', ...CONTENT_LANGS] as SupportedLanguageCode[]).forEach((l) => !CONTENT[tradition]?.[l]?.[en] && add(l, en)));
+  return Object.fromEntries(Object.entries(out).map(([l, set]) => [l, [...set]]));
+}
+
+for (const [tradition, profile] of Object.entries(CHURCH_PROFILES)) {
+  eachRecord(profile, (record, missing) => {
+    for (const l of missing) {
+      const translated = CONTENT[tradition]?.[l]?.[record.en];
+      if (translated) record[l] = forDirection(l, translated);
+    }
+  });
+}

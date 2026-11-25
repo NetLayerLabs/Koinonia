@@ -9,6 +9,8 @@ import { IconGlossary, IconLectern, IconSeal } from './brand/Icons';
 import { LangMark } from './brand/LangMark';
 
 interface MinistryBridgeAndImpactStudioProps {
+  /** The signed-in staff member: approvals here are theirs. */
+  staffName: string;
   profile: ChurchTraditionProfile;
   aiOn: boolean;
   canPublish: boolean;
@@ -46,6 +48,7 @@ export const MinistryBridgeAndImpactStudio: React.FC<MinistryBridgeAndImpactStud
   profile,
   aiOn,
   canPublish,
+  staffName,
   onToast,
   onNavigateToPew,
 }) => {
@@ -435,7 +438,7 @@ export const MinistryBridgeAndImpactStudio: React.FC<MinistryBridgeAndImpactStud
             <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
               {storyApproved ? (
                 <span className="tag tag-vine text-sm py-1 max-[601px]:whitespace-normal">
-                  <IconSeal className="w-4 h-4" /> Approved by {profile.leaderName}
+                  <IconSeal className="w-4 h-4" /> Approved by {staffName}
                 </span>
               ) : (
                 <button onClick={() => setStoryApproved(true)} disabled={!allMetricsVerified} className="btn btn-vine max-[601px]:w-full max-[601px]:min-h-[44px]!">

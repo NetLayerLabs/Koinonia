@@ -30,7 +30,7 @@ The newcomer reads the approved reply with a private pickup code. Requests showi
 
 Staff sign in with a role, and the server enforces it: only a pastor can release a reply; the care team drafts and checks; welcome volunteers run live service cues - one tap moves every phone in the pews - and see which language groups are arriving without a greeter who speaks their language. On a phone, the staff app works like a native app.
 
-How we use AI: Claude (served through the 0G Compute Network) summarises, drafts, translates and checks translations. It never sees personal details, never writes Bible text, never answers a crisis, and never sends anything without a person's approval. Voices are ElevenLabs, for public text only. The interface translations are machine-made and say so. The privacy filter is pattern-based and can miss unusual names, so attendees are asked not to name others.
+How we use AI: Claude (served through the 0G Compute Network) summarises, drafts, translates and checks translations. It never sees personal details, never writes Bible text, never answers a crisis, and never sends anything without a person's approval. Voices are ElevenLabs, for public text only. The interface and each church's service guide are machine-translated once, with the church's glossary, and say so; Bible text is never machine-translated. The privacy filter is pattern-based and can miss unusual names, so attendees are asked not to name others.
 
 Inspired by the Basilica di San Venanzio in Camerino, Italy, where university students from many countries worship with local families. The parish and US church in the demo are sample profiles with fictional people. Built with Claude Code during the hackathon.
 ```

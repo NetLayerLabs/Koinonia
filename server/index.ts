@@ -235,7 +235,12 @@ async function createCare(body: Record<string, unknown>, client: string): Promis
   const groups = Array.isArray(body.groups)
     ? (body.groups as { id: string; name: string; languages: string[]; schedule: string; audience: string }[])
     : [];
-  const piiTokens = Array.isArray(body.piiTokens) ? (body.piiTokens as CareRecord['piiTokens']) : [];
+  // Counts only (what kind of detail was removed on the phone, and how many): keep the shape strict.
+  const piiTokens: CareRecord['piiTokens'] = (Array.isArray(body.piiTokens) ? body.piiTokens : [])
+    .slice(0, 20)
+    .filter((x): x is { type: string; redactedCount: number } =>
+      Boolean(x) && typeof (x as { type?: unknown }).type === 'string' && Number.isInteger((x as { redactedCount?: unknown }).redactedCount))
+    .map((x) => ({ type: x.type.slice(0, 40), redactedCount: Math.max(0, Math.min(1000, x.redactedCount)) })) as CareRecord['piiTokens'];
   const source = body.source === 'Test request' ? 'Test request' : 'Pew QR Scan';
 
   const base: CareRecord = {
@@ -283,16 +288,28 @@ async function createCare(body: Record<string, unknown>, client: string): Promis
   // and reaches the pastor, it just skips the AI step. Nobody asking for help is turned away.
   const meta = TRADITION_META[t];
   const withinBudget = takeBudget('careTriage', client);
+  // If the AI does not answer in time, the request is still accepted and reaches the pastor
+  // without an AI summary: nobody asking for help is turned away because of an outage.
+  let triage: Awaited<ReturnType<typeof triageRequest>> | null = null;
+  let aiFailed = false;
   if (aiEnabled() && withinBudget) {
-    const triage = await triageRequest({
-      redactedText,
-      attendeeLanguage: LANG_NAMES[language],
-      pastorLanguage: LANG_NAMES[pastorLang],
-      traditionLabel: `${meta.churchName} - ${meta.label}`,
-      leaderName,
-      verses,
-      groups,
-    });
+    try {
+      triage = await triageRequest({
+        redactedText,
+        attendeeLanguage: LANG_NAMES[language],
+        pastorLanguage: LANG_NAMES[pastorLang],
+        traditionLabel: `${meta.churchName} - ${meta.label}`,
+        leaderName,
+        verses,
+        groups,
+      });
+    } catch (error) {
+      if (!(error instanceof AIUnavailable)) throw error;
+      console.warn(`Triage skipped: ${error.message}`);
+      aiFailed = true;
+    }
+  }
+  if (triage) {
     if (triage.safety_concern) {
       return {
         ...base,
@@ -323,7 +340,7 @@ async function createCare(body: Record<string, unknown>, client: string): Promis
     category: sample.category,
     urgency: sample.urgency,
     mode: 'sample',
-    summaryForLeader: `${aiEnabled() ? '[No AI summary - this visitor reached the demo limit]' : '[Sample - AI is off]'} Request written in ${LANG_NAMES[language]}: “${redactedText.slice(0, 220)}${redactedText.length > 220 ? '…' : ''}”`,
+    summaryForLeader: `${aiFailed ? '[No AI summary - the AI service did not answer in time]' : aiEnabled() ? '[No AI summary - this visitor reached the demo limit]' : '[Sample - AI is off]'} Request written in ${LANG_NAMES[language]}: “${redactedText.slice(0, 220)}${redactedText.length > 220 ? '…' : ''}”`,
     verseId: verses.some((v) => v.id === sample.verseId) ? sample.verseId : verses[0]?.id ?? null,
     groupId: group?.id ?? null,
     draftPastorText: sampleDraft(pastorLang, group?.name ?? 'our welcome group'),

@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Check, ChevronLeft, Ellipsis, Loader2, Send, Volume2, VolumeX, X } from 'lucide-react';
 import type { TraditionId } from '../shared/languages';
 import { ChurchTraditionProfile, SupportedLanguageCode } from '../types/koinonia';
-import { SUPPORTED_LANGUAGES, scriptureFor } from '../data/koinoniaData';
+import { SUPPORTED_LANGUAGES, contentText, scriptureFor } from '../data/koinoniaData';
 import { runZeroPIIShield } from '../utils/privacyShield';
 import { api, useLiveEvents } from '../lib/api';
 import { isMachineTranslated, tRich, useT, type UiKey } from '../lib/i18n';
@@ -371,15 +371,15 @@ export const LivePewCompanion: React.FC<LivePewCompanionProps> = ({
   const companionHeader = (
     <header className="bg-nave text-vellum px-5 py-5 sm:px-6 sm:py-6">
       <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-        <span className="font-sc text-[0.8125rem] tracking-[0.07em] text-rubric-wash">{profile.serviceTerm}</span>
+        <span className="font-sc text-[0.8125rem] tracking-[0.07em] text-rubric-wash">{contentText(profile.id, selectedLang, profile.serviceTerm)}</span>
         <span className="tag tag-vine">
           <IconSeal className="w-3.5 h-3.5" />
-          {t('common.approvedBy', { name: profile.leaderName })}
+          {t('common.approvedBy', { name: sermon?.publishedBy ?? profile.leaderName })}
         </span>
       </div>
 
       <div>
-        <p className="text-sm text-vellum/70 mb-1">{profile.currentSeriesTitle}</p>
+        <p className="text-sm text-vellum/70 mb-1">{contentText(profile.id, selectedLang, profile.currentSeriesTitle)}</p>
         <h3 className="text-2xl sm:text-3xl leading-[1.1] text-vellum mb-2.5">{messageTitle}</h3>
         <p className="text-sm text-vellum/70 leading-snug">
           {profile.churchName}, {profile.cityCountry}
@@ -420,10 +420,13 @@ export const LivePewCompanion: React.FC<LivePewCompanionProps> = ({
     <div className="p-5 sm:p-7 space-y-8">
       <section>
         <p className="rubric text-base mb-3">{scripture.reference}</p>
-        <blockquote className="font-serif text-xl sm:text-2xl leading-[1.5] text-ink">
+        <blockquote dir="auto" className="font-serif text-xl sm:text-2xl leading-[1.5] text-ink">
           {scripture.texts[selectedLang]}
         </blockquote>
         <p className="rubric-ink mt-3">{t('message.storedPassage')}</p>
+        {selectedLang !== 'en' && scripture.texts[selectedLang] === scripture.texts.en && (
+          <p className="text-sm text-ink-3 mt-1">{t('message.verseEnglishOnly', { language: currentLangMeta.nativeName })}</p>
+        )}
         <div className="mt-4 pt-3 rule flex flex-wrap items-center justify-between gap-3">
           <p className="text-sm text-ink-3">{t('message.demoPassage')}</p>
           <ListenButton
@@ -636,7 +639,7 @@ export const LivePewCompanion: React.FC<LivePewCompanionProps> = ({
       <section className="space-y-5">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <span className="rubric">
-            {t('habit.dayLabel', { day: currentHabitItem.day, label: currentHabitItem.dayLabel })}
+            {t('habit.dayLabel', { day: currentHabitItem.day, label: contentText(profile.id, selectedLang, currentHabitItem.dayLabel) })}
           </span>
           <span className={`tag tag-vine${mobileApp ? ' whitespace-normal leading-snug' : ''}`}>
             <IconSeal className="w-3.5 h-3.5 shrink-0" />
@@ -648,7 +651,10 @@ export const LivePewCompanion: React.FC<LivePewCompanionProps> = ({
 
         <div className="border-s-2 border-rubric ps-4">
           <p className="rubric mb-1.5">{currentHabitItem.scriptureRef}</p>
-          <p className="font-serif text-lg leading-relaxed text-ink">{currentHabitItem.scriptureText[selectedLang]}</p>
+          <p dir="auto" className="font-serif text-lg leading-relaxed text-ink">{currentHabitItem.scriptureText[selectedLang]}</p>
+          {selectedLang !== 'en' && currentHabitItem.scriptureText[selectedLang] === currentHabitItem.scriptureText.en && (
+            <p className="text-sm text-ink-3 mt-1.5">{t('message.verseEnglishOnly', { language: currentLangMeta.nativeName })}</p>
+          )}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 rule pt-5">

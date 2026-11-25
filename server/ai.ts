@@ -52,6 +52,11 @@ export function aiEnabled(): boolean {
   return provider() !== 'none';
 }
 
+// No AI call may hang for minutes (the SDK default is 10). Triage, which a person in the pew
+// is waiting on, gets a shorter limit of its own; see triageRequest.
+const AI_TIMEOUT_MS = 120_000;
+const TRIAGE_TIMEOUT_MS = 40_000;
+
 let client: Anthropic | null = null;
 
 function getClient(): Anthropic {
@@ -63,9 +68,11 @@ function getClient(): Anthropic {
       apiKey: null,
       authToken: key, // sent as "Authorization: Bearer sk-…", as 0G's quickstart shows
       defaultHeaders: { 'x-api-key': key }, // also accepted by Anthropic-style gateways
+      timeout: AI_TIMEOUT_MS,
+      maxRetries: 1,
     });
   } else {
-    client = new Anthropic();
+    client = new Anthropic({ timeout: AI_TIMEOUT_MS, maxRetries: 1 });
   }
   return client;
 }
@@ -89,15 +96,16 @@ async function structured<S extends z.ZodType>(
   system: string,
   user: string,
   effort: 'low' | 'medium',
-  tier: 'main' | 'fast' = effort === 'low' ? 'fast' : 'main'
+  tier: 'main' | 'fast' = effort === 'low' ? 'fast' : 'main',
+  timeout?: number
 ): Promise<z.infer<S>> {
   return provider() === '0g'
-    ? structuredViaTool(schema, system, user, tier === 'fast' ? fastModel() : aiModel())
-    : structuredDirect(schema, system, user, effort);
+    ? structuredViaTool(schema, system, user, tier === 'fast' ? fastModel() : aiModel(), timeout)
+    : structuredDirect(schema, system, user, effort, timeout);
 }
 
 /** Direct Anthropic API: native structured outputs plus server-side model fallback. */
-async function structuredDirect<S extends z.ZodType>(schema: S, system: string, user: string, effort: 'low' | 'medium'): Promise<z.infer<S>> {
+async function structuredDirect<S extends z.ZodType>(schema: S, system: string, user: string, effort: 'low' | 'medium', timeout?: number): Promise<z.infer<S>> {
   let res;
   try {
     res = await getClient().beta.messages.parse({
@@ -108,7 +116,7 @@ async function structuredDirect<S extends z.ZodType>(schema: S, system: string, 
       system,
       messages: [{ role: 'user', content: user }],
       output_config: { effort, format: betaZodOutputFormat(schema) },
-    });
+    }, timeout ? { timeout, maxRetries: 0 } : undefined);
   } catch (error) {
     mapError(error);
   }
@@ -122,7 +130,7 @@ async function structuredDirect<S extends z.ZodType>(schema: S, system: string, 
  * for every Claude model, but all of them support tools, so the answer is collected as
  * the input of a single "submit" tool and validated with the same Zod schema.
  */
-async function structuredViaTool<S extends z.ZodType>(schema: S, system: string, user: string, model: string): Promise<z.infer<S>> {
+async function structuredViaTool<S extends z.ZodType>(schema: S, system: string, user: string, model: string, timeout?: number): Promise<z.infer<S>> {
   const { $schema: _ignored, ...inputSchema } = z.toJSONSchema(schema) as Record<string, unknown>;
   const tool = {
     name: 'submit',
@@ -141,7 +149,7 @@ async function structuredViaTool<S extends z.ZodType>(schema: S, system: string,
         system: system + instruction,
         tools: [tool],
         messages: [{ role: 'user', content: attempt === 0 ? user : `${user}\n\n(Reminder: call the "submit" tool with the answer.)` }],
-      });
+      }, timeout ? { timeout, maxRetries: 0 } : undefined);
     } catch (error) {
       mapError(error);
     }
@@ -222,7 +230,7 @@ export async function triageRequest(input: {
   verses: { id: string; reference: string; theme: string }[];
   groups: { id: string; name: string; languages: string[]; schedule: string; audience: string }[];
 }): Promise<Triage> {
-  const user = `Church: ${input.traditionLabel}. The reply will be signed by ${input.leaderName}.
+  const user = `Church: ${input.traditionLabel}. Sign the draft reply as the church's care team, never with a person's name: the pastor who approves it is named separately on the attendee's screen.
 Pastor language: ${input.pastorLanguage}. Attendee wrote in: ${input.attendeeLanguage}.
 
 Approved passages (pick one id):
@@ -234,7 +242,7 @@ ${input.groups.map((g) => `- ${g.id}: ${g.name} (${g.audience}; languages: ${g.l
 <request>
 ${input.redactedText}
 </request>`;
-  return structured(TriageSchema, CARE_SYSTEM, user, 'medium');
+  return structured(TriageSchema, CARE_SYSTEM, user, 'medium', undefined, TRIAGE_TIMEOUT_MS);
 }
 
 const TranslationSchema = z.object({ translation: z.string() });
@@ -333,5 +341,33 @@ Rules:
   const out = (await structured(schema, system, user, 'low')) as Record<string, string | undefined>;
   return Object.fromEntries(
     keys.filter((k) => typeof out[k] === 'string' && out[k]!.trim()).map((k) => [k, out[k]!.replace(/\u2014/g, '-')])
+  );
+}
+
+/**
+ * One-time translation of a church's own service guide and 7-day plan text (not Scripture),
+ * used by server/scripts/translate-content.ts. Saved in the app, not generated per visit.
+ */
+export async function translateContent(input: {
+  strings: Record<string, string>;
+  to: string;
+  traditionLabel: string;
+  glossary: string;
+}): Promise<Record<string, string>> {
+  const keys = Object.keys(input.strings);
+  const schema = z.object(Object.fromEntries(keys.map((k) => [k, z.string().optional()])) as Record<string, z.ZodOptional<z.ZodString>>);
+  const system = `You translate a church's guide to its Sunday service and its 7-day reading plan into ${input.to}, for newcomers who read ${input.to} (${input.traditionLabel}).
+Rules:
+- Translate faithfully and warmly. Do not add theology, and do not add, quote or alter Bible verses.
+- Use the vocabulary of this church's tradition.
+- Keep names of people, places and groups as written (for example Basilica di San Venanzio, UNICAM, Camerino, Grace Fellowship).
+- Text in Italian inside parentheses or «» quotes is what is said aloud in the service: keep it exactly as written.
+- Where the English gives a spoken response, give the response as it is said in ${input.to} services if you know it.
+- Keep times, numbers and the bullet "•" as written. Never use an em dash; use a hyphen or a comma.
+- Return every key.${input.glossary ? `\n\nApproved glossary for ${input.to} (follow exactly):\n${input.glossary}` : ''}`;
+  const user = `Translate each value into ${input.to}. Return a JSON object with exactly the same keys.\n\n${JSON.stringify(input.strings, null, 2)}`;
+  const out = (await structured(schema, system, user, 'low')) as Record<string, string | undefined>;
+  return Object.fromEntries(
+    keys.filter((k) => typeof out[k] === 'string' && out[k]!.trim()).map((k) => [k, out[k]!.replace(/—/g, '-')])
   );
 }

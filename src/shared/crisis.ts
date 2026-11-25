@@ -11,28 +11,41 @@ const PATTERNS: Record<CrisisKind, string[]> = {
     // English
     'suicid', 'kill myself', 'end my life', 'want to die', 'wanna die', 'hurt myself', 'harm myself',
     'self-harm', 'self harm', 'cutting myself', 'no reason to live', 'better off dead', 'overdose',
+    "don't want to live", 'don’t want to live', 'dont want to live', 'do not want to live', 'take my own life', 'end it all',
     // Italian
     'uccidermi', 'togliermi la vita', 'farla finita', 'voglio morire', 'farmi del male', 'autolesion',
+    'ammazzarmi', 'non voglio più vivere', 'non voglio piu vivere',
     // Spanish
     'matarme', 'quitarme la vida', 'quiero morir', 'hacerme daño',
+    'no quiero vivir', 'acabar con mi vida', 'ya no quiero vivir',
     // French
     'me tuer', 'mettre fin à mes jours', 'envie de mourir', 'me faire du mal',
+    'veux mourir', 'en finir avec la vie', 'plus envie de vivre', 'veux plus vivre',
     // Portuguese
     'me matar', 'tirar minha vida', 'quero morrer', 'me machucar',
+    'não quero mais viver', 'nao quero mais viver', 'acabar com a minha vida',
     // Polish
     'samobój', 'zabić się', 'chcę umrzeć', 'skrzywdzić się',
+    'się zabić', 'zabiję się', 'nie chcę żyć', 'odebrać sobie życie', 'skończyć ze sobą',
     // Ukrainian
     'самогуб', 'вбити себе', 'хочу померти', 'завдати собі шкоди',
+    'покінчити з собою', 'не хочу жити', 'накласти на себе руки',
     // Swahili
     'kujiua', 'nataka kufa', 'kujidhuru',
+    'sitaki kuishi', 'kujitoa uhai',
     // Vietnamese
     'tự tử', 'tự sát', 'muốn chết', 'tự làm hại',
+    'không muốn sống', 'kết liễu cuộc đời',
     // Korean
     '자살', '죽고 싶', '자해',
+    '죽고싶', '살고 싶지 않', '살고싶지 않', '목숨을 끊',
     // Chinese
     '自杀', '想死', '自残', '伤害自己',
+    '自殺', '不想活', '轻生', '结束生命', '结束自己的生命',
     // Arabic
     'انتحار', 'أقتل نفسي', 'أريد أن أموت', 'أؤذي نفسي',
+    // the same, as often typed without hamza
+    'اقتل نفسي', 'اريد ان اموت', 'أنهي حياتي', 'انهي حياتي', 'لا أريد أن أعيش', 'لا اريد ان اعيش',
   ],
   'abuse-or-violence': [
     'abuse', 'abusing me', 'abusive', 'hits me', 'beats me', 'beat me', 'rape', 'sexual assault', 'assaulted',
@@ -87,6 +100,8 @@ export function screenForCrisis(text: string): CrisisScreen {
 }
 
 export interface CrisisLine {
+  /** Names the line's label and note in the interface strings (crisis.line.<id>, crisis.note.<id>). */
+  id: 'it-emergency' | 'it-violence' | 'us-emergency' | 'us-988' | 'us-dv';
   label: string;
   number: string;
   note: string;
@@ -95,14 +110,14 @@ export interface CrisisLine {
 export function crisisLinesFor(tradition: TraditionId): CrisisLine[] {
   if (tradition === 'san-venanzio-unicam') {
     return [
-      { label: 'Emergency (Italy)', number: '112', note: 'Police, ambulance, fire - free, 24/7' },
-      { label: 'Anti-violence & stalking line', number: '1522', note: 'Free, 24/7, multilingual' },
+      { id: 'it-emergency', label: 'Emergency (Italy)', number: '112', note: 'Police, ambulance, fire - free, 24/7' },
+      { id: 'it-violence', label: 'Anti-violence & stalking line', number: '1522', note: 'Free, 24/7, multilingual' },
     ];
   }
   return [
-    { label: 'Emergency (USA)', number: '911', note: 'Police, ambulance, fire' },
-    { label: '988 Suicide & Crisis Lifeline', number: '988', note: 'Call or text, 24/7' },
-    { label: 'National Domestic Violence Hotline', number: '1-800-799-7233', note: '24/7, many languages' },
+    { id: 'us-emergency', label: 'Emergency (USA)', number: '911', note: 'Police, ambulance, fire' },
+    { id: 'us-988', label: '988 Suicide & Crisis Lifeline', number: '988', note: 'Call or text, 24/7' },
+    { id: 'us-dv', label: 'National Domestic Violence Hotline', number: '1-800-799-7233', note: '24/7, many languages' },
   ];
 }
 
