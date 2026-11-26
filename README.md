@@ -8,7 +8,7 @@ Koinonia is a two-way pastoral care bridge for multilingual churches. A newcomer
 - **Data:** sample data and fictional people; this is not an official parish tool.
 - **App:** [koinonia.netlayerlabs.com](https://koinonia.netlayerlabs.com).
 - **Demo video:** `<VIDEO_URL>`.
-- **Code:** [github.com/NetLayerLabs/Koinonia](https://github.com/NetLayerLabs/Koinonia) (private, access on request).
+- **Code:** [github.com/NetLayerLabs/Koinonia](https://github.com/NetLayerLabs/Koinonia) (public).
 
 **Judges, start here:**
 1. Open [koinonia.netlayerlabs.com](https://koinonia.netlayerlabs.com) and choose **I'm visiting - open the pew page**. No account is needed.

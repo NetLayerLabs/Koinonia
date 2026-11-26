@@ -5,7 +5,7 @@
 - **Video:** 5 minutes or less (YouTube, Vimeo or Loom). It is played at the live showcase on Tuesday, December 1, 12:00 PM ET.
 - **Team:** Netlayer Labs (solo).
 - **Live demo:** https://koinonia.netlayerlabs.com.
-- **Code:** https://github.com/NetLayerLabs/Koinonia (make it public, or share access, if the form asks for code).
+- **Code:** https://github.com/NetLayerLabs/Koinonia (public).
 
 Record the video against the live site, with AI and voices on, and check every claim below against what is on screen.
 
