@@ -7,7 +7,7 @@ Koinonia is a two-way pastoral care bridge for multilingual churches. A newcomer
 - **Event:** AI for Church Hackathon 2026, Care & Community track.
 - **Data:** sample data and fictional people; this is not an official parish tool.
 - **App:** [koinonia.netlayerlabs.com](https://koinonia.netlayerlabs.com).
-- **Demo video:** `<VIDEO_URL>`.
+- **Demo video:** [youtu.be/TJladbX2_4w](https://youtu.be/TJladbX2_4w) (3:52).
 - **Code:** [github.com/NetLayerLabs/Koinonia](https://github.com/NetLayerLabs/Koinonia) (public).
 
 **Judges, start here:**

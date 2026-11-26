@@ -2,7 +2,7 @@
 
 - **Deadline:** Friday, November 27, 2026, 11:59 PM ET. Aim to submit by Wednesday, November 25. A draft does not count; click Submit.
 - **Track:** Care & Community.
-- **Video:** 5 minutes or less (YouTube, Vimeo or Loom). It is played at the live showcase on Tuesday, December 1, 12:00 PM ET.
+- **Video:** https://youtu.be/TJladbX2_4w (3:52; 5 minutes or less). It is played at the live showcase on Tuesday, December 1, 12:00 PM ET.
 - **Team:** Netlayer Labs (solo).
 - **Live demo:** https://koinonia.netlayerlabs.com.
 - **Code:** https://github.com/NetLayerLabs/Koinonia (public).
@@ -73,7 +73,7 @@ Tips: rehearse once; record in 1080p; use a real phone (screen mirroring) for th
 - [ ] Read-aloud works on a real phone: tap Ascolta on the Italian page
 - [ ] Phone: the top and bottom bars clear the notch and home bar; tapping a text field does not zoom
 - [ ] A native speaker skims Italian, Spanish and Arabic
-- [ ] Video recorded against the live site and uploaded
+- [x] Video recorded against the live site and uploaded: https://youtu.be/TJladbX2_4w
 - [ ] Screenshots uploaded (real ones in `public/shots/`, plus live-site captures)
 - [ ] Submitted (not a draft) by November 25
 - [ ] Link shared with your church and friends for People's Choice; showcase is December 1, 12:00 PM ET
